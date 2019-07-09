@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+
+{% block page_heading %}Log in{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-4 col-xs-offset-4 section-box">
+        <form method="POST">
+            {% csrf_token %}
+            {{ login_form | as_bootstrap}}
+            <button class="btn btn-primary" type="submit">Log in</button>
+            <button class="btn btn-primary" href="#">Register</button>
+            <a href="#">Forgot password?</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
