@@ -45,7 +45,7 @@ def register(request):
     """Render the registration form and handle registration logic"""
 
     if request.user.is_authenticated:
-        return redirect(reverse('login'))
+        return redirect(reverse('account_login'))
 
     if request.method == 'POST':
         registration_form = RegistrationForm(request.POST)
