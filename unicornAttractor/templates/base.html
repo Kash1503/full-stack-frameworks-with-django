@@ -62,9 +62,11 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'login' %}">Log in</a></li>
-                            <li><a href="#">Register</a></li>
+                            <li><a href="{% url 'register' %}">Register</a></li>
+                            {% if user.is_authenticated %}
                             <li role="separator" class="divider"></li>
                             <li><a href="{% url 'logout' %}">Log out</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                 </ul>

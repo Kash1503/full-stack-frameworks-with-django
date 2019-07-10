@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block page_heading %}Register{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2 section-box">
+        <form method='POST'>
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ registration_form.username.errors}}
+                    {{ registration_form.username.label_tag }}
+                    {{ registration_form.username}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-input">
+                    {{ registration_form.firstName.errors }}
+                    {{ registration_form.firstName.label_tag }}
+                    {{ registration_form.firstName }}
+                </div>
+                <div class="col-xs-6 form-input">
+                    {{ registration_form.lastName.errors }}
+                    {{ registration_form.lastName.label_tag }}
+                    {{ registration_form.lastName }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ registration_form.email.errors }}
+                    {{ registration_form.email.label_tag }}
+                    {{ registration_form.email }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ registration_form.password1.errors }}
+                    {{ registration_form.password1.label_tag }}
+                    {{ registration_form.password1 }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ registration_form.password2.errors }}
+                    {{ registration_form.password2.label_tag }}
+                    {{ registration_form.password2 }}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ registration_form.address1.errors }}
+                    {{ registration_form.address1.label_tag }}
+                    {{ registration_form.address1 }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ registration_form.address2.errors }}
+                    {{ registration_form.address2.label_tag }}
+                    {{ registration_form.address2 }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-input">
+                    {{ registration_form.city.errors }}
+                    {{ registration_form.city.label_tag }}
+                    {{ registration_form.city }}
+                </div>
+                <div class="col-xs-6 form-input">
+                    {{ registration_form.postcode.errors }}
+                    {{ registration_form.postcode.label_tag }}
+                    {{ registration_form.postcode }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class='btn btn-primary' type='submit'>Register</button>
+                    <span style='font-style: italic;'>* Required field</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
