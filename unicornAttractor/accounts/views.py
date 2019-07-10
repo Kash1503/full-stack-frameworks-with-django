@@ -44,5 +44,27 @@ def login(request):
 def register(request):
     """Render the registration form and handle registration logic"""
 
-    registration_form = RegistrationForm()
+    if request.user.is_authenticated:
+        return redirect(reverse('login'))
+
+    if request.method == 'POST':
+        registration_form = RegistrationForm(request.POST)
+
+        if registration_form.is_valid():
+            registration_form.save()
+
+            user = auth.authenticate(username=request.POST['username'],
+                                     password=request.POST['password1'])
+
+            if user:
+                auth.login(user=user, request=request)
+                messages.success(request, 'You have successfully registered!')
+                return redirect(reverse('index'))
+            
+            else:
+                messages.error(request, 'We were unable to create a new account at this time')
+
+    else:
+        registration_form = RegistrationForm()
+    
     return render(request, 'register.html', {'registration_form': registration_form})
