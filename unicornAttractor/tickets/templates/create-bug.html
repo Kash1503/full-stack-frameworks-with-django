@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block page_heading %}Log a New Bug{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2 section-box">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ create_ticket_form.title.errors}}
+                    {{ create_ticket_form.title.label_tag }}
+                    {{ create_ticket_form.title}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ create_ticket_form.description.errors}}
+                    {{ create_ticket_form.description.label_tag }}
+                    {{ create_ticket_form.description}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class='btn btn-primary' type='submit'>Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
