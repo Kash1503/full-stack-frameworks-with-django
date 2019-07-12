@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1 section-box">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>{{ ticket.title }}</h2>
+                <p>Created by {{ ticket.userID.username }} on {{ ticket.dateTimeCreated }}</p>
+                <hr>
+                <p>{{ ticket.description }}</p>
+                <p>Last updated by {{ ticket.lastUpdatedBy }} at {{ ticket.lastUpdatedDateTime }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <span>{{ ticket.ticket_type.capitalize }}</span>
+                <span>{{ ticket.status.capitalize }}</span>
+                <span><i class="glyphicon glyphicon-eye-open"></i> {{ ticket.views }}</span>
+                <span><i class="glyphicon glyphicon-thumbs-up"></i> {{ ticket.upvotes }}</span>
+                {% if ticket.ticket_type == 'feature' %}
+                <span><i class="glyphicon glyphicon-gbp"></i>{{ ticket.value }} paid</span>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+<h4>Comments</h4>
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1 section-box">
+        <div class="row">
+            <div class="col-xs-12">
+                {% for comment in comments_list %}
+                
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img class='user-avatar' src='https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg' alt='Default user image'>
+                        <span><i class="glyphicon glyphicon-thumbs-up"></i> {{ comment.upvotes }}</span>
+                        <p>{{ comment.dateTimeCreated }}</p>
+                    </div>
+                    <div class="col-xs-8">
+                        <p>{{ comment.userID.username }}</p>
+                        <p>{{ comment.body }}</p>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <form method='POST'>
+                    {% csrf_token %}
+                    {{ comment_form.body.errors }}
+                    {{ comment_form.body }}
+                    <button type='submit'>Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

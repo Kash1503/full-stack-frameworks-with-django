@@ -21,3 +21,16 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.title   
+
+
+class Comments(models.Model):
+    """Model to store user comments"""
+
+    userID = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    body = models.TextField(null=False, default='')
+    upvotes = models.IntegerField(default=0, null=False)
+    ticketID = models.ForeignKey('Ticket', on_delete=models.CASCADE)
+    dateTimeCreated = models.DateTimeField(auto_now_add=True)
+
+    def __int__(self):
+        return self.id
