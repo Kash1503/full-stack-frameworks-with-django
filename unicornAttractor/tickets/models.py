@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib import auth
 
 # Create your models here.
 
@@ -11,12 +12,12 @@ class Ticket(models.Model):
     upvotes = models.IntegerField(default=0, null=False)
     views = models.IntegerField(default=0, null=False)
     dateTimeCreated = models.DateTimeField(auto_now_add=True)
-    userID = models.IntegerField(null=False, default=0)
+    userID = models.ForeignKey('auth.User', null=False, on_delete=models.SET_DEFAULT, default=1)
     status = models.CharField(max_length=200, null=False, default='under review')
-    lastUpdatedByID = models.IntegerField(null=False, default=0)
+    lastUpdatedBy = models.CharField(max_length=200, null=False, default='unknown')
     lastUpdatedDateTime = models.DateTimeField(auto_now=True)
     value = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    ticket_type = models.CharField(max_length=50, null=False, default='bug')
+    ticket_type = models.CharField(max_length=50, null=False)
 
     def __str__(self):
         return self.title   

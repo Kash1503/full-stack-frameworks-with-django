@@ -14,19 +14,32 @@
                 <div class="list-group">
                     {% for ticket in tickets %}
                     <a href="#" class="list-group-item">
-                        <h4 class="list-group-item-heading">{{ ticket.title }}</h4>
-                        <p class="list-group-item-text">Created on {{ ticket.dateTimeCreated }}</p>
+                        <h4 class="list-group-item-heading">{{ ticket.title.capitalize }}</h4>
+                        <p class="list-group-item-text">Created on {{ ticket.dateTimeCreated }} by {{ ticket.userID }}</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span>{{ ticket.ticket_type.capitalize }}</span>
+                                <span><i class="glyphicon glyphicon-eye-open"></i> {{ ticket.views }}</span>
+                                <span><i class="glyphicon glyphicon-thumbs-up"></i> {{ ticket.upvotes }}</span>
+                                {% if ticket.ticket_type == 'feature' %}
+                                <span><i class="glyphicon glyphicon-gbp"></i> {{ ticket.value }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span>Last updated by {{ ticket.lastUpdatedBy }} on
+                                    {{ ticket.lastUpdatedDateTime }}</span>
+                            </div>
+                        </div>
                     </a>
                     {% endfor %}
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-10 col-xs-offset-1 section-box">
-        <a href="{% url 'new_bug' %}" class="btn btn-primary">Log a bug</a>
-        <a href="#" class="btn btn-primary">Request a feature</a>
+        <a href="{% url 'new_ticket' ticket_type='bug' %}" class="btn btn-primary">Log a bug</a>
+        <a href="{% url 'new_ticket' ticket_type='feature' %}" class="btn btn-primary">Request a feature</a>
     </div>
 </div>
 {% endblock %}

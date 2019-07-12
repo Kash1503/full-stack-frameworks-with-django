@@ -17,17 +17,26 @@ def tracker(request):
     else:
         return redirect(reverse('account_login'))
 
-def create_new_bug(request):
-    """load the create a bug page"""
+def create_ticket(request, ticket_type):
+    """Render the create-ticket.html page and allow users to create a new ticket"""
+
+    if ticket_type == 'bug':
+        header = 'Log a new bug'
+    elif ticket_type == 'feature':
+        header = 'Request a new feature'
 
     if request.method == 'POST':
         create_ticket_form = CreateTicketForm(request.POST)
 
         if create_ticket_form.is_valid():
-            create_ticket_form.save()
-            messages.success(request, 'Your bug has been logged successfully!')
+            new_ticket = create_ticket_form.save(commit=False)
+            new_ticket.ticket_type = ticket_type
+            new_ticket.userID = request.user
+            new_ticket.lastUpdatedBy = request.user.username
+            new_ticket.save()
+            messages.success(request, 'Your ' + ticket_type + ' has been logged successfully!')
             return redirect(reverse('tracker'))
     else:
         create_ticket_form = CreateTicketForm()
 
-    return render(request, 'create-bug.html', {'create_ticket_form': create_ticket_form})
+    return render(request, 'create-ticket.html', {'create_ticket_form': create_ticket_form, 'header': header})

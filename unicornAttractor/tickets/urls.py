@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import tracker, create_new_bug
+from .views import tracker, create_ticket
 
 urlpatterns = [
     path('', tracker, name='tracker'),
-    path('new-bug/', create_new_bug, name='new_bug'),
+    path('new-ticket/<ticket_type>/', create_ticket, name='new_ticket'),
 ]
