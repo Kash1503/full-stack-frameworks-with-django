@@ -75,3 +75,23 @@ def ticket_details(request, pk):
         comment_form = CommentForm()
 
     return render(request, 'ticket-details.html', {'ticket': ticket, 'comment_form': comment_form, 'comments_list': comments_list})
+
+
+def upvote_comment(request, pk, ticket_id):
+    """Allow users to upvote comments and refresh the page"""
+
+    comment = get_object_or_404(Comments, pk=pk)
+    comment.upvotes += 1
+    comment.save()
+
+    return redirect(reverse('ticket_details', args=[ticket_id]))
+
+
+def upvote_ticket(request, pk):
+    """Allow users to upvote tickets and refresh the page"""
+
+    ticket = get_object_or_404(Ticket, pk=pk)
+    ticket.upvotes += 1
+    ticket.save()
+
+    return redirect(reverse('ticket_details', args=[pk]))

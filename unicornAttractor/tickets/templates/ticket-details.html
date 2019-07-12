@@ -18,7 +18,7 @@
                 <span>{{ ticket.ticket_type.capitalize }}</span>
                 <span>{{ ticket.status.capitalize }}</span>
                 <span><i class="glyphicon glyphicon-eye-open"></i> {{ ticket.views }}</span>
-                <span><i class="glyphicon glyphicon-thumbs-up"></i> {{ ticket.upvotes }}</span>
+                <span><a href="{% url 'upvote_ticket' pk=ticket.id %}"><i class="glyphicon glyphicon-thumbs-up"></i></a> {{ ticket.upvotes }}</span>
                 {% if ticket.ticket_type == 'feature' %}
                 <span><i class="glyphicon glyphicon-gbp"></i>{{ ticket.value }} paid</span>
                 {% endif %}
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-xs-2">
                         <img class='user-avatar' src='https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg' alt='Default user image'>
-                        <span><i class="glyphicon glyphicon-thumbs-up"></i> {{ comment.upvotes }}</span>
+                        <span><a href="{% url 'upvote_comment' pk=comment.id ticket_id=ticket.id %}"><i class="glyphicon glyphicon-thumbs-up"></i></a> {{ comment.upvotes }}</span>
                         <p>{{ comment.dateTimeCreated }}</p>
                     </div>
                     <div class="col-xs-8">
