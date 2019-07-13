@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from .forms import CreateTicketForm, CommentForm
+from .forms import CreateTicketForm, CommentForm, FilterForm, EditTicketForm
 from .models import Ticket, Comments
 
 # Create your views here.
@@ -13,7 +13,21 @@ def tracker(request):
 
     if request.user.is_authenticated:
         tickets = Ticket.objects.exclude(status__exact='closed').order_by('dateTimeCreated')
-        return render(request, 'tracker.html', {'tickets': tickets})
+
+        if request.method == 'POST':
+            filter_form = FilterForm(request.POST)
+
+            if filter_form.is_valid():
+                if request.POST['ticket_type'] == 'all':
+                    tickets = Ticket.objects.exclude(status__exact='closed').order_by(request.POST['sort_by'])
+                else:
+                    tickets = Ticket.objects.filter(ticket_type__exact=request.POST['ticket_type']).exclude(status__exact='closed').order_by(request.POST['sort_by'])
+                return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form})
+
+        else: 
+            filter_form = FilterForm()
+
+        return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form})
     else:
         return redirect(reverse('account_login'))
 
@@ -47,6 +61,26 @@ def create_ticket(request, ticket_type):
     return render(request, 'create-ticket.html', {'create_ticket_form': create_ticket_form, 'header': header})
 
 
+def edit_ticket(request, pk):
+    """
+    Render the edit-ticket.html page and pull data from the Ticket Model to
+    pre-populate the form and allow user to submit changes
+    """
+
+    ticket = get_object_or_404(Ticket, pk=pk)
+
+    if request.method == 'POST':
+        edit_ticket_form = EditTicketForm(request.POST, instance=ticket, label_suffix='')
+        if edit_ticket_form.is_valid():
+            edited_ticket = edit_ticket_form.save(commit=False)
+            edited_ticket.lastUpdatedBy = request.user.username
+            edited_ticket.save()
+            return redirect(reverse('ticket_details', args=[pk]))
+    else:
+        edit_ticket_form = EditTicketForm(instance=ticket, label_suffix='')
+
+    return render(request, 'edit-ticket.html', {'edit_ticket_form': edit_ticket_form})
+
 def ticket_details(request, pk):
     """
     Get the details of the selected ticket and pass them to the rendered html page
@@ -61,7 +95,7 @@ def ticket_details(request, pk):
     comments_list = Comments.objects.filter(ticketID__exact=ticket).order_by('dateTimeCreated')
 
     if request.method =='POST':
-        comment_form = CommentForm(request.POST)
+        comment_form = CommentForm(request.POST, label_suffix='')
 
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
@@ -72,7 +106,7 @@ def ticket_details(request, pk):
             return render(request, 'ticket-details.html', {'ticket': ticket, 'comment_form': CommentForm(), 'comments_list': updated_comments_list})
 
     else:
-        comment_form = CommentForm()
+        comment_form = CommentForm(label_suffix='')
 
     return render(request, 'ticket-details.html', {'ticket': ticket, 'comment_form': comment_form, 'comments_list': comments_list})
 

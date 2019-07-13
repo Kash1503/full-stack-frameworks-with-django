@@ -13,7 +13,7 @@ class Ticket(models.Model):
     views = models.IntegerField(default=0, null=False)
     dateTimeCreated = models.DateTimeField(auto_now_add=True)
     userID = models.ForeignKey('auth.User', null=False, on_delete=models.SET_DEFAULT, default=1)
-    status = models.CharField(max_length=200, null=False, default='under review')
+    status = models.CharField(max_length=200, null=False, default='reviewing')
     lastUpdatedBy = models.CharField(max_length=200, null=False, default='unknown')
     lastUpdatedDateTime = models.DateTimeField(auto_now=True)
     value = models.DecimalField(max_digits=10, decimal_places=2, default=0)

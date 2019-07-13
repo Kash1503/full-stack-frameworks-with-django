@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block page_heading %}Edit Ticket{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2 section-box">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ edit_ticket_form.title.errors}}
+                    {{ edit_ticket_form.title.label_tag }}
+                    {{ edit_ticket_form.title}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ edit_ticket_form.description.errors}}
+                    {{ edit_ticket_form.description.label_tag }}
+                    {{ edit_ticket_form.description}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ edit_ticket_form.status.errors}}
+                    {{ edit_ticket_form.status.label_tag }}
+                    {{ edit_ticket_form.status}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ edit_ticket_form.ticket_type.errors}}
+                    {{ edit_ticket_form.ticket_type.label_tag }}
+                    {{ edit_ticket_form.ticket_type}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class='btn btn-primary' type='submit'>Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

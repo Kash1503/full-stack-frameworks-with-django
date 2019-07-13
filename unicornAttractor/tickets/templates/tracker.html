@@ -4,7 +4,26 @@
 {% block content %}
 <div class="row">
     <div class="col-xs-10 col-xs-offset-1 section-box">
-        filter options
+        <form method='POST'>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xs-6">
+                    {{ filter_form.ticket_type.errors }}
+                    {{ filter_form.ticket_type.label_tag }}
+                    {{ filter_form.ticket_type }}
+                </div>
+                <div class="col-xs-6">
+                    {{ filter_form.sort_by.errors }}
+                    {{ filter_form.sort_by.label_tag }}
+                    {{ filter_form.sort_by }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class='btn btn-primary' type='submit'>Filter</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <div class="row">
@@ -15,7 +34,8 @@
                     {% for ticket in tickets %}
                     <a href="{% url 'ticket_details' pk=ticket.id %}" class="list-group-item">
                         <h4 class="list-group-item-heading">{{ ticket.title.capitalize }}</h4>
-                        <p class="list-group-item-text">Created on {{ ticket.dateTimeCreated }} by {{ ticket.userID }}</p>
+                        <p class="list-group-item-text">Created on {{ ticket.dateTimeCreated }} by {{ ticket.userID }}
+                        </p>
                         <hr>
                         <div class="row">
                             <div class="col-xs-12 content-right">
