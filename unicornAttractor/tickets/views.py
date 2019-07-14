@@ -15,7 +15,7 @@ def tracker(request):
         tickets = Ticket.objects.exclude(status__exact='closed').order_by('dateTimeCreated')
 
         if request.method == 'POST':
-            filter_form = FilterForm(request.POST)
+            filter_form = FilterForm(request.POST, label_suffix='')
 
             if filter_form.is_valid():
                 if request.POST['ticket_type'] == 'all':
@@ -25,7 +25,7 @@ def tracker(request):
                 return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form})
 
         else: 
-            filter_form = FilterForm()
+            filter_form = FilterForm(label_suffix='')
 
         return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form})
     else:
@@ -45,7 +45,7 @@ def create_ticket(request, ticket_type):
         header = 'Request a new feature'
 
     if request.method == 'POST':
-        create_ticket_form = CreateTicketForm(request.POST)
+        create_ticket_form = CreateTicketForm(request.POST, label_suffix='')
 
         if create_ticket_form.is_valid():
             new_ticket = create_ticket_form.save(commit=False)
@@ -56,7 +56,7 @@ def create_ticket(request, ticket_type):
             messages.success(request, 'Your ' + ticket_type + ' has been logged successfully!')
             return redirect(reverse('tracker'))
     else:
-        create_ticket_form = CreateTicketForm()
+        create_ticket_form = CreateTicketForm(label_suffix='')
 
     return render(request, 'create-ticket.html', {'create_ticket_form': create_ticket_form, 'header': header})
 

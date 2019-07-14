@@ -6,6 +6,9 @@ class CreateTicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ('title', 'description')
+        widgets = {
+            'description': forms.Textarea(attrs={'class': 'form-textbox', 'placeholder': 'Enter a description here...'})
+        }
 
 
 class EditTicketForm(forms.ModelForm):
@@ -25,8 +28,9 @@ class EditTicketForm(forms.ModelForm):
         model = Ticket
         fields = ('title', 'description', 'status', 'ticket_type')
         widgets = {
-            'status': forms.Select(choices=STATUS_CHOICES),
-            'ticket_type': forms.Select(choices=TICKET_TYPE_CHOICES)
+            'status': forms.Select(choices=STATUS_CHOICES), 
+            'ticket_type': forms.Select(choices=TICKET_TYPE_CHOICES),
+            'description': forms.Textarea(attrs={'class': 'form-textbox'})
         }
 
 class CommentForm(forms.ModelForm):
@@ -34,6 +38,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ('body', )
+        widgets = {
+            'body': forms.Textarea(attrs={'class': 'form-textbox', 'placeholder': 'Leave a comment...'})
+        }
 
 
 class FilterForm(forms.Form):
@@ -52,5 +59,5 @@ class FilterForm(forms.Form):
         ('all', 'All'),
     ]
 
-    ticket_type = forms.CharField(label='Ticket type', required=False, widget=forms.Select(choices=TICKET_TYPE_CHOICES))
-    sort_by = forms.CharField(label='Sort By', required=False, widget=forms.Select(choices=SORT_BY_CHOICES))
+    ticket_type = forms.CharField(label='Ticket type', required=False, widget=forms.Select(choices=TICKET_TYPE_CHOICES, attrs={'class': 'form-dropdown'}))
+    sort_by = forms.CharField(label='Sort By', required=False, widget=forms.Select(choices=SORT_BY_CHOICES, attrs={'class': 'form-dropdown'}))

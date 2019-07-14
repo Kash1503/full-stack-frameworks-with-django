@@ -1,56 +1,82 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!-- Ticket details -->
 <div class="row">
     <div class="col-xs-10 col-xs-offset-1 section-box">
-        <div class="row">
+        <div class="row tracker-info-row">
             <div class="col-xs-12">
-                <h2>{{ ticket.title }}</h2>
-                <p>Created by {{ ticket.userID.username }} on {{ ticket.dateTimeCreated }}</p>
+                <h2 class="ticket-title">{{ ticket.title }}</h2>
+                <p class="tracker-ticket-date">Created by {{ ticket.userID.username }} on {{ ticket.dateTimeCreated }}
+                </p>
                 <hr>
-                <p>{{ ticket.description }}</p>
-                <p>Last updated by {{ ticket.lastUpdatedBy }} at {{ ticket.lastUpdatedDateTime }}</p>
+                <p class="ticket-heading">Description</p>
+                <p class="ticket-description">{{ ticket.description }}</p>
+            </div>
+        </div>
+        <div class="row tracker-info-row">
+            <div class="col-xs-6">
+                <span class="tracker-ticket-type">{{ ticket.ticket_type.capitalize }}</span>
+                {% if ticket.status == 'reviewing' %}
+                <span class="tracker-ticket-status-reviewing">{{ ticket.status.capitalize }}</span>
+                {% elif ticket.status == 'in progress' %}
+                <span class="tracker-ticket-status-inprogress">{{ ticket.status.capitalize }}</span>
+                {% endif %}
+            </div>
+            <div class="col-xs-6 content-right">
+                <span class="tracker-ticket-info"><i class="glyphicon glyphicon-eye-open"></i> {{ ticket.views }}</span>
+                <span class="tracker-ticket-info"><i class="glyphicon glyphicon-thumbs-up"></i>
+                    {{ ticket.upvotes }}</span>
+                {% if ticket.ticket_type == 'feature' %}
+                <span class="tracker-ticket-info"><i class="glyphicon glyphicon-gbp"></i>{{ ticket.value }} paid</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 content-right">
+                <p class="tracker-ticket-date">Last updated by {{ ticket.lastUpdatedBy }} at
+                    {{ ticket.lastUpdatedDateTime }}</p>
             </div>
         </div>
         <hr>
         <div class="row">
-            <div class="col-xs-12">
-                <span>{{ ticket.ticket_type.capitalize }}</span>
-                <span>{{ ticket.status.capitalize }}</span>
-                <span><i class="glyphicon glyphicon-eye-open"></i> {{ ticket.views }}</span>
-                <span><a href="{% url 'upvote_ticket' pk=ticket.id %}"><i class="glyphicon glyphicon-thumbs-up"></i></a> {{ ticket.upvotes }}</span>
-                {% if ticket.ticket_type == 'feature' %}
-                <span><i class="glyphicon glyphicon-gbp"></i>{{ ticket.value }} paid</span>
+            <div class="col-xs-6 content-left">
+                {% if ticket.ticket_type == 'bug' %}
+                <a class="btn btn-primary" href="{% url 'upvote_ticket' pk=ticket.id %}">I'm also having this issue!</a>
+                {% elif ticket.ticket_type == 'feature' %}
+                <a class="btn btn-primary" href="{% url 'upvote_ticket' pk=ticket.id %}">I want this too!</a>
+                {% endif %}
+            </div>
+            <div class="col-xs-6 content-right">
+                {% if ticket.userID == request.user %}
+                <a class="btn btn-primary" href="{% url 'edit_ticket' pk=ticket.id %}">Edit Ticket</a>
                 {% endif %}
             </div>
         </div>
-        {% if ticket.userID == request.user %}
-        <div class="row">
-            <div class="col-xs-12">
-                <a class="btn btn-primary" href="{% url 'edit_ticket' pk=ticket.id %}">Edit Ticket</a>
-            </div>
-        </div>
-        {% endif %}
     </div>
 </div>
-<h4>Comments</h4>
+<!-- Comments section -->
 <div class="row">
     <div class="col-xs-10 col-xs-offset-1 section-box">
         <div class="row">
             <div class="col-xs-12">
+                <p class="ticket-heading">Comments</p>
+                <hr>
                 {% for comment in comments_list %}
-                
-                <div class="row">
+                <div class="row comment-row">
                     <div class="col-xs-2">
-                        <img class='user-avatar' src='https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg' alt='Default user image'>
+                        <img class='user-avatar'
+                            src='https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg'
+                            alt='Default user image'>
                     </div>
                     <div class="col-xs-8">
-                        <p>{{ comment.userID.username }} - {{ comment.dateTimeCreated }}</p>
-                        <p>{{ comment.body }}</p>
-                        <span><a href="{% url 'upvote_comment' pk=comment.id ticket_id=ticket.id %}"><i class="glyphicon glyphicon-thumbs-up"></i></a> {{ comment.upvotes }}</span>
+                        <p class="comment-username">{{ comment.userID.username }} <span class="comment-time">- {{ comment.dateTimeCreated }}</span></p>
+                        <p class="comment-body">{{ comment.body }}</p>
+                        <span class="comment-like"><a href="{% url 'upvote_comment' pk=comment.id ticket_id=ticket.id %}"><i
+                                    class="glyphicon glyphicon-thumbs-up"></i></a> {{ comment.upvotes }}</span>
                     </div>
                 </div>
-
+                <hr>
                 {% endfor %}
             </div>
         </div>
@@ -60,7 +86,7 @@
                     {% csrf_token %}
                     {{ comment_form.body.errors }}
                     {{ comment_form.body }}
-                    <button type='submit'>Comment</button>
+                    <button class="btn btn-primary" type='submit'>Comment</button>
                 </form>
             </div>
         </div>

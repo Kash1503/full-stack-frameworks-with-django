@@ -17,7 +17,7 @@ class RegistrationForm(UserCreationForm):
     first_name = forms.CharField(label='First Name *', label_suffix='')
     last_name = forms.CharField(label='Last Name *', label_suffix='')
     username = forms.CharField(label='Username *', label_suffix='')
-    email = forms.CharField(label='Email Address *', label_suffix='')
+    email = forms.EmailField(label='Email Address *', label_suffix='')
     # address1 = forms.CharField(label='Address 1', required=False, label_suffix='')
     # address2 = forms.CharField(label='Address 2', required=False, label_suffix='')
     # city = forms.CharField(required=False, label_suffix='')
