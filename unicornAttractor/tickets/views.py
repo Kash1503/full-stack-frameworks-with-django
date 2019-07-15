@@ -129,3 +129,14 @@ def upvote_ticket(request, pk):
     ticket.save()
 
     return redirect(reverse('ticket_details', args=[pk]))
+
+
+def support_feature(request, pk):
+    """
+    Render the purchase page and pass the relevant ticket to the page
+    so users can donate funds to support a given feature
+    """
+
+    ticket = get_object_or_404(Ticket, pk=pk)
+
+    return render(request, 'support-feature.html', {'ticket': ticket})

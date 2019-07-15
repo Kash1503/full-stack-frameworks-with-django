@@ -18,10 +18,12 @@ from django.urls import path, include
 from home import urls as urls_home
 from accounts import urls as urls_accounts
 from tickets import urls as urls_tickets
+from cart import urls as urls_cart
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(urls_home)),
     path('accounts/', include(urls_accounts)),
     path('tickets/', include(urls_tickets)),
+    path('cart/', include(urls_cart)),
 ]

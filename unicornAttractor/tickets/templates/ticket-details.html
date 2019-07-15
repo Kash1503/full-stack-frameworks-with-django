@@ -44,7 +44,7 @@
                 {% if ticket.ticket_type == 'bug' %}
                 <a class="btn btn-primary" href="{% url 'upvote_ticket' pk=ticket.id %}">I'm also having this issue!</a>
                 {% elif ticket.ticket_type == 'feature' %}
-                <a class="btn btn-primary" href="{% url 'upvote_ticket' pk=ticket.id %}">I want this too!</a>
+                <a class="btn btn-primary" href="{% url 'support_feature' pk=ticket.id %}">I want this too!</a>
                 {% endif %}
             </div>
             <div class="col-xs-6 content-right">

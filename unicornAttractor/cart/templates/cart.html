@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block page_heading %}Pending Pledges{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2 section-box">
+        {% for ticket in cart_tickets %}
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="tracker-ticket-title">{{ ticket.ticket.title }}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p>{{ ticket.ticket.description }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <form method='POST' action="{% url 'adjust_pledge' ticket.id %}">
+                    {% csrf_token %}
+                    <div class="form-input-pledge">
+                        <input name="pledge" type="number" min="5" max="999" placeholder="£ Pledge"
+                            value="{{ ticket.pledge }}">
+                        <button class="btn btn-primary" action='submit'>Adjust Pledge</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2 section-box">
+        <div class="row">
+            <div class="col-xs-6 content-left">
+                <a href="#" class="btn btn-primary">Checkout</a>
+            </div>
+            <div class="col-xs-6 content-right">
+                <p>Total</p>
+                <p>£ {{ total_pledge }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

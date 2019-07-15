@@ -28,8 +28,8 @@ class EditTicketForm(forms.ModelForm):
         model = Ticket
         fields = ('title', 'description', 'status', 'ticket_type')
         widgets = {
-            'status': forms.Select(choices=STATUS_CHOICES), 
-            'ticket_type': forms.Select(choices=TICKET_TYPE_CHOICES),
+            'status': forms.Select(choices=STATUS_CHOICES, attrs={'class': 'form-dropdown'}), 
+            'ticket_type': forms.Select(choices=TICKET_TYPE_CHOICES, attrs={'class': 'form-dropdown'}),
             'description': forms.Textarea(attrs={'class': 'form-textbox'})
         }
 
