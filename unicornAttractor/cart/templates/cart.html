@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
-{% block page_heading %}Pending Pledges{% endblock %}
+{% block page_heading %}Basket{% endblock %}
 
 {% block content %}
+<!-- List of tickets -->
 <div class="row">
     <div class="col-xs-8 col-xs-offset-2 section-box">
+        {% if ticket_count == 0 %}
+        <div class="row">
+            <div class="col-xs-12">
+                <p>There are no tickets currently in your basket. Why not visit the <a href="{% url 'tracker' %}">Ticket Tracker</a> and browse the features</p>
+            </div>
+        </div>
+        {% else %}
         {% for ticket in cart_tickets %}
         <div class="row">
             <div class="col-xs-12">
@@ -22,26 +30,30 @@
                     {% csrf_token %}
                     <div class="form-input-pledge">
                         <input name="pledge" type="number" min="5" max="999" placeholder="£ Pledge"
-                            value="{{ ticket.pledge }}">
+                            value="{{ ticket.pledge }}" step="0.01">
                         <button class="btn btn-primary" action='submit'>Adjust Pledge</button>
+                        <a class="btn btn-warning" href="{% url 'delete_ticket' ticket.id %}">Remove</a>
                     </div>
                 </form>
             </div>
         </div>
         {% endfor %}
+        {% endif %}
     </div>
 </div>
+<!-- Checkout and total -->
+{% if ticket_count != 0 %}
 <div class="row">
     <div class="col-xs-8 col-xs-offset-2 section-box">
         <div class="row">
             <div class="col-xs-6 content-left">
-                <a href="#" class="btn btn-primary">Checkout</a>
+                <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
             </div>
             <div class="col-xs-6 content-right">
-                <p>Total</p>
-                <p>£ {{ total_pledge }}</p>
+                <p>Total <strong>£{{ total_pledge }}</strong> for {{ ticket_count }} ticket(s)</p>
             </div>
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}

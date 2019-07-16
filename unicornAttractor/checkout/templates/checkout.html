@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block page_heading %}Checkout{% endblock %}
+
+{% block content %}
+<!-- Order summary -->
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2 section-box">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Order Summary</h4>
+                {% for ticket in cart_tickets %}
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p><strong>{{ ticket.ticket.title }}</strong></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>£{{ ticket.pledge }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p><strong>£{{ total_pledge }}</strong> Total</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Order form -->
+
+
+<!-- Payment form -->
+
+{% endblock %}

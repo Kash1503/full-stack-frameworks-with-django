@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'tickets',
     'cart',
+    'checkout',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ.get('EMAIL_RESET_ADDRESS')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_RESET_PASSWORD')
 EMAIL_PORT = 587
+
+# Stripe API keys
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')

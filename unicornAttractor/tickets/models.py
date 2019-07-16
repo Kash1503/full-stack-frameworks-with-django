@@ -32,5 +32,5 @@ class Comments(models.Model):
     ticketID = models.ForeignKey('Ticket', on_delete=models.CASCADE)
     dateTimeCreated = models.DateTimeField(auto_now_add=True)
 
-    def __int__(self):
-        return self.id
+    def __str__(self):
+        return 'ID: {0} - User: {1} - Ticket: {2}'.format(self.id, self.userID.username, self.ticketID.id)

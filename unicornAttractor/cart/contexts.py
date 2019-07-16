@@ -17,4 +17,4 @@ def cart_contents(request):
         ticket_count += 1
         cart_tickets.append({'id': id, 'pledge': pledge, 'ticket': ticket})
 
-    return {'cart_tickets': cart_tickets, 'total_pledge': total_pledge, 'ticket_count': ticket_count}
+    return {'cart_tickets': cart_tickets, 'total_pledge': round(float(total_pledge), 2), 'ticket_count': ticket_count}
