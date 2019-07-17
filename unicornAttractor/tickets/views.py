@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .forms import CreateTicketForm, CommentForm, FilterForm, EditTicketForm
 from .models import Ticket, Comments
+from django.utils import timezone
 
 # Create your views here.
 
@@ -52,6 +53,7 @@ def create_ticket(request, ticket_type):
             new_ticket.ticket_type = ticket_type
             new_ticket.userID = request.user
             new_ticket.lastUpdatedBy = request.user.username
+            new_ticket.lastUpdatedDateTime = timezone.now()
             new_ticket.save()
             messages.success(request, 'Your ' + ticket_type + ' has been logged successfully!')
             return redirect(reverse('tracker'))
@@ -74,6 +76,7 @@ def edit_ticket(request, pk):
         if edit_ticket_form.is_valid():
             edited_ticket = edit_ticket_form.save(commit=False)
             edited_ticket.lastUpdatedBy = request.user.username
+            edited_ticket.lastUpdatedDateTime = timezone.now()
             edited_ticket.save()
             return redirect(reverse('ticket_details', args=[pk]))
     else:

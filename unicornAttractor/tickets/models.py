@@ -15,7 +15,7 @@ class Ticket(models.Model):
     userID = models.ForeignKey('auth.User', null=False, on_delete=models.SET_DEFAULT, default=1)
     status = models.CharField(max_length=200, null=False, default='reviewing')
     lastUpdatedBy = models.CharField(max_length=200, null=False, default='unknown')
-    lastUpdatedDateTime = models.DateTimeField(auto_now=True)
+    lastUpdatedDateTime = models.DateTimeField()
     value = models.FloatField(default=0)
     ticket_type = models.CharField(max_length=50, null=False)
 

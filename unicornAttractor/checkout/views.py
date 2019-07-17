@@ -54,6 +54,8 @@ def checkout(request):
                 for id, pledge in cart.items():
                     ticket = get_object_or_404(Ticket, pk=id)
                     ticket.value += pledge
+                    ticket.lastUpdatedBy = request.user.username
+                    ticket.lastUpdatedDateTime = timezone.now()
                     ticket.save()
 
                 request.session['cart'] = {}
