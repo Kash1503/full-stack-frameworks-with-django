@@ -6,13 +6,13 @@ class UserProfile(models.Model):
     Store further information for each user
     """
 
-    phone_number = models.CharField(max_length=30, blank=True)
-    country = models.CharField(max_length=20, blank=True)
-    county = models.CharField(max_length=30, blank=True)
-    town_or_city = models.CharField(max_length=30, blank=True)
-    postcode = models.CharField(max_length=15, blank=True)
-    street1 = models.CharField(max_length=50, blank=True)
-    street2 = models.CharField(max_length=50, blank=True)
+    phone_number = models.CharField(max_length=30, blank=True, default='')
+    country = models.CharField(max_length=20, blank=True, default='')
+    county = models.CharField(max_length=30, blank=True, default='')
+    town_or_city = models.CharField(max_length=30, blank=True, default='')
+    postcode = models.CharField(max_length=15, blank=True, default='')
+    street1 = models.CharField(max_length=50, blank=True, default='')
+    street2 = models.CharField(max_length=50, blank=True, default='')
     userID = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     def __str__(self):

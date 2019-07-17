@@ -56,3 +56,8 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('phone_number', 'county', 'country', 'town_or_city', 'postcode', 'street1', 'street2',)
+        labels = {
+            'street1': 'Address',
+            'street2': 'Address 2',
+            'town_or_city': 'Town/City',
+        }

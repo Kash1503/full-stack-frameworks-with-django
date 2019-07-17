@@ -162,6 +162,16 @@ $section-colour: #94cef0;
     color: white;
 }
 
+.tracker-ticket-status-closed{
+    background-color: rgb(131, 131, 131);
+    border: 1px solid rgb(48, 48, 48);
+    border-radius: 2px;
+    display: inline;
+    padding: 5px;
+    margin-right: 5px;
+    color: white;
+}
+
 .tracker-ticket-info{
     margin-left: 5px;
     font-size: 15px;

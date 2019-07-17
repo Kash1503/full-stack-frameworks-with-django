@@ -21,6 +21,8 @@
                 <span class="tracker-ticket-status-reviewing">{{ ticket.status.capitalize }}</span>
                 {% elif ticket.status == 'in progress' %}
                 <span class="tracker-ticket-status-inprogress">{{ ticket.status.capitalize }}</span>
+                {% elif ticket.status == 'closed' %}
+                <span class="tracker-ticket-status-closed">{{ ticket.status.capitalize }}</span>
                 {% endif %}
             </div>
             <div class="col-xs-6 content-right">

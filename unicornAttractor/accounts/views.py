@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from .forms import LoginForm, RegistrationForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
+from .models import UserProfile
+from tickets.models import Ticket
 
 # Create your views here.
 
@@ -33,7 +35,7 @@ def login(request):
                 messages.success(request, 'You have successfully logged in!')
                 return redirect(reverse('index'))
             else:
-                login_form.add_error(None, 'Your username or password is incorrect')
+                messages.error(request, 'Your username or password is incorrect')
 
     else:
         login_form = LoginForm(label_suffix='')
@@ -73,3 +75,17 @@ def register(request):
         profile_form = UserProfileForm(label_suffix='')
     
     return render(request, 'register.html', {'registration_form': registration_form, 'profile_form': profile_form})
+
+
+def user_profile(request):
+    """
+    Render the users profile page with the users information
+    """
+    user_profile = UserProfile.objects.get(userID=request.user)
+
+    user_tickets = Ticket.objects.filter(userID__exact=request.user)
+    total_tickets = 0
+    for ticket in user_tickets:
+        total_tickets += 1
+
+    return render(request, 'user-profile.html', {'user_profile': user_profile, 'user_tickets': user_tickets, 'total_tickets': total_tickets})
