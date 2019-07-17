@@ -58,8 +58,8 @@
         </div>
         <hr>
 
-        <form role="form" method='POST' id="payment-form">
-            <div class="row">   
+        <form role="form" method='POST' id="payment-form" action="{% url 'checkout' %}">
+            <div class="row">
                 <!-- Order form -->
                 <div class="col-xs-6">
                     <div class="row">
@@ -148,6 +148,7 @@
                             {{ payment_form.expiry_year }}
                         </div>
                     </div>
+                    {{ payment_form.stripe_id }}
                 </div>
             </div>
             <hr>

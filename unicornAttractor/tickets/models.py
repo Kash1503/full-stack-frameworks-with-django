@@ -16,7 +16,7 @@ class Ticket(models.Model):
     status = models.CharField(max_length=200, null=False, default='reviewing')
     lastUpdatedBy = models.CharField(max_length=200, null=False, default='unknown')
     lastUpdatedDateTime = models.DateTimeField(auto_now=True)
-    value = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    value = models.FloatField(default=0)
     ticket_type = models.CharField(max_length=50, null=False)
 
     def __str__(self):
