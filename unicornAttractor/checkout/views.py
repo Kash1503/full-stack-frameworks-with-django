@@ -5,8 +5,10 @@ from django.contrib import messages
 from django.conf import settings
 from django.utils import timezone
 from .forms import OrderForm, MakePaymentForm
+from accounts.models import UserProfile
 from tickets.models import Ticket
 from .models import OrderLineItem
+
 
 # Create your views here.
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -16,9 +18,20 @@ def checkout(request):
     """
     Allow users to purchase tickets stored in the cart
     """
+    full_name = request.user.first_name + ' ' + request.user.last_name
+    user_profile = UserProfile.objects.get(userID=request.user.id)
 
     if request.method == 'POST':
-        order_form = OrderForm(request.POST, label_suffix='')
+        order_form = OrderForm(request.POST, label_suffix='', initial={
+            'full_name': full_name,
+            'phone_number': user_profile.phone_number,
+            'country': user_profile.country, 
+            'county': user_profile.county, 
+            'town_or_city': user_profile.town_or_city, 
+            'postcode': user_profile.postcode, 
+            'street1': user_profile.street1, 
+            'street2': user_profile.street2,
+        })
         payment_form = MakePaymentForm(request.POST, label_suffix='')
 
         if order_form.is_valid() and payment_form.is_valid():
@@ -69,7 +82,16 @@ def checkout(request):
             messages.error(request, 'Unable to take payment with that card!')
 
     else:
-        order_form = OrderForm(label_suffix='')
+        order_form = OrderForm(label_suffix='', initial={
+            'full_name': full_name,
+            'phone_number': user_profile.phone_number,
+            'country': user_profile.country, 
+            'county': user_profile.county, 
+            'town_or_city': user_profile.town_or_city, 
+            'postcode': user_profile.postcode, 
+            'street1': user_profile.street1, 
+            'street2': user_profile.street2,
+        })
         payment_form = MakePaymentForm(label_suffix='')
 
     return render(request, 'checkout.html', {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE_KEY})

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Order
+from accounts.models import UserProfile
 
 class MakePaymentForm(forms.Form):
     """
@@ -21,8 +22,9 @@ class OrderForm(forms.ModelForm):
     Order form made using a model form from the Order model
     """
     class Meta:
+        
         model = Order
-        fields = {'full_name', 'phone_number', 'country', 'county', 'town_or_city', 'postcode', 'street1', 'street2', 'country'}
+        fields = {'full_name', 'phone_number', 'country', 'county', 'town_or_city', 'postcode', 'street1', 'street2'}
         labels = {
             'street1': 'Address',
             'street2': 'Address 2',

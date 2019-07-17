@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import UserProfile
 
 class LoginForm(forms.Form):
     """Form to allow users to input log in details and log in"""
@@ -18,10 +19,6 @@ class RegistrationForm(UserCreationForm):
     last_name = forms.CharField(label='Last Name *', label_suffix='')
     username = forms.CharField(label='Username *', label_suffix='')
     email = forms.EmailField(label='Email Address *', label_suffix='')
-    # address1 = forms.CharField(label='Address 1', required=False, label_suffix='')
-    # address2 = forms.CharField(label='Address 2', required=False, label_suffix='')
-    # city = forms.CharField(required=False, label_suffix='')
-    # postcode = forms.CharField(required=False, label_suffix='')
 
     class Meta:
         model = User
@@ -51,3 +48,11 @@ class RegistrationForm(UserCreationForm):
             raise forms.ValidationError('Passwords must match')
 
         return password2
+
+class UserProfileForm(forms.ModelForm):
+    """
+    Further information added for each user, if they wish to do so
+    """
+    class Meta:
+        model = UserProfile
+        fields = ('phone_number', 'county', 'country', 'town_or_city', 'postcode', 'street1', 'street2',)

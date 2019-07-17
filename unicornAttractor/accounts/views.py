@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -22,7 +22,7 @@ def login(request):
         return redirect(reverse('index'))
 
     if request.method == 'POST':
-        login_form = LoginForm(request.POST)
+        login_form = LoginForm(request.POST, label_suffix='')
 
         if login_form.is_valid():
             user = auth.authenticate(username=request.POST['username'],
@@ -36,7 +36,7 @@ def login(request):
                 login_form.add_error(None, 'Your username or password is incorrect')
 
     else:
-        login_form = LoginForm()
+        login_form = LoginForm(label_suffix='')
 
     return render(request, 'login.html', {'login_form': login_form})
 
@@ -48,10 +48,12 @@ def register(request):
         return redirect(reverse('account_login'))
 
     if request.method == 'POST':
-        registration_form = RegistrationForm(request.POST)
+        registration_form = RegistrationForm(request.POST, label_suffix='')
+        profile_form = UserProfileForm(request.POST, label_suffix='')
 
-        if registration_form.is_valid():
+        if registration_form.is_valid() and profile_form.is_valid():
             registration_form.save()
+            user_profile = profile_form.save(commit=False)
 
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password1'])
@@ -59,12 +61,15 @@ def register(request):
             if user:
                 auth.login(user=user, request=request)
                 messages.success(request, 'You have successfully registered!')
+                user_profile.userID = request.user
+                user_profile.save()
                 return redirect(reverse('index'))
             
             else:
                 messages.error(request, 'We were unable to create a new account at this time')
 
     else:
-        registration_form = RegistrationForm()
+        registration_form = RegistrationForm(label_suffix='')
+        profile_form = UserProfileForm(label_suffix='')
     
-    return render(request, 'register.html', {'registration_form': registration_form})
+    return render(request, 'register.html', {'registration_form': registration_form, 'profile_form': profile_form})

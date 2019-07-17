@@ -82,7 +82,7 @@ def edit_ticket(request, pk):
     else:
         edit_ticket_form = EditTicketForm(instance=ticket, label_suffix='')
 
-    return render(request, 'edit-ticket.html', {'edit_ticket_form': edit_ticket_form})
+    return render(request, 'edit-ticket.html', {'edit_ticket_form': edit_ticket_form, 'ticket': ticket})
 
 def ticket_details(request, pk):
     """

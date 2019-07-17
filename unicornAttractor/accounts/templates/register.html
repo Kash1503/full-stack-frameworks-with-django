@@ -47,35 +47,54 @@
                     {{ registration_form.password2 }}
                 </div>
             </div>
-<!-- 
             <hr>
-
             <div class="row">
                 <div class="col-xs-12 form-input">
-                    {{ registration_form.address1.errors }}
-                    {{ registration_form.address1.label_tag }}
-                    {{ registration_form.address1 }}
+                    {{ profile_form.phone_number.errors }}
+                    {{ profile_form.phone_number.label_tag }}
+                    {{ profile_form.phone_number }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 form-input">
-                    {{ registration_form.address2.errors }}
-                    {{ registration_form.address2.label_tag }}
-                    {{ registration_form.address2 }}
+                    {{ profile_form.street1.errors }}
+                    {{ profile_form.street1.label_tag }}
+                    {{ profile_form.street1 }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ profile_form.street2.errors }}
+                    {{ profile_form.street2.label_tag }}
+                    {{ profile_form.street2 }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ profile_form.town_or_city.errors }}
+                    {{ profile_form.town_or_city.label_tag }}
+                    {{ profile_form.town_or_city }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 form-input">
-                    {{ registration_form.city.errors }}
-                    {{ registration_form.city.label_tag }}
-                    {{ registration_form.city }}
+                    {{ profile_form.county.errors }}
+                    {{ profile_form.county.label_tag }}
+                    {{ profile_form.county }}
                 </div>
                 <div class="col-xs-6 form-input">
-                    {{ registration_form.postcode.errors }}
-                    {{ registration_form.postcode.label_tag }}
-                    {{ registration_form.postcode }}
+                    {{ profile_form.postcode.errors }}
+                    {{ profile_form.postcode.label_tag }}
+                    {{ profile_form.postcode }}
                 </div>
-            </div> -->
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-input">
+                    {{ profile_form.country.errors }}
+                    {{ profile_form.country.label_tag }}
+                    {{ profile_form.country }}
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xs-12">
                     <button class='btn btn-primary' type='submit'>Register</button>

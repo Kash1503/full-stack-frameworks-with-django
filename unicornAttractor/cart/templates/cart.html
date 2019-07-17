@@ -29,7 +29,8 @@
                 <form method='POST' action="{% url 'adjust_pledge' ticket.id %}">
                     {% csrf_token %}
                     <div class="form-input-pledge">
-                        <input name="pledge" type="number" min="5" max="999" placeholder="£ Pledge"
+                        <span>£</span>
+                        <input name="pledge" type="number" min="5" max="99999999" placeholder="£ Pledge"
                             value="{{ ticket.pledge }}" step="0.01">
                         <button class="btn btn-primary" action='submit'>Adjust Pledge</button>
                         <a class="btn btn-warning" href="{% url 'delete_ticket' ticket.id %}">Remove</a>
