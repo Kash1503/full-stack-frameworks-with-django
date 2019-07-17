@@ -50,7 +50,7 @@
                 {% endif %}
             </div>
             <div class="col-xs-6 content-right">
-                {% if ticket.userID == request.user %}
+                {% if ticket.userID == request.user and ticket.status != 'closed' %}
                 <a class="btn btn-primary" href="{% url 'edit_ticket' pk=ticket.id %}">Edit Ticket</a>
                 {% endif %}
             </div>

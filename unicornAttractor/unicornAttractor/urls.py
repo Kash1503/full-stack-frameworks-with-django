@@ -20,6 +20,7 @@ from accounts import urls as urls_accounts
 from tickets import urls as urls_tickets
 from cart import urls as urls_cart
 from checkout import urls as urls_checkout
+from analytics import urls as urls_analytics
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('tickets/', include(urls_tickets)),
     path('cart/', include(urls_cart)),
     path('checkout/', include(urls_checkout)),
+    path('analytics/', include(urls_analytics)),
 ]

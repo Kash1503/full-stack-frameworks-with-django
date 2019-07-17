@@ -1,54 +1,70 @@
 {% extends 'base.html' %}
 
-{% block page_heading %}Unicorn Attractor!{% endblock %}
+{% block page_heading %}UnicornAttractor{% endblock %}
 
 {% block content %}
 
 <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
-        <div class="page-section">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere minus reprehenderit aliquam pariatur
-            possimus, perspiciatis fuga cumque nihil sint, expedita necessitatibus enim impedit nemo dolore
-            numquam quas recusandae quisquam odit architecto quo velit et voluptate inventore consequuntur?
-            Eius, velit. Quis unde modi magni sapiente fuga libero accusantium quidem. Animi, veritatis?
+    <div class="col-xs-8 col-xs-offset-2 section-box">
+        <!-- Description section / landing page -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>About the app</h3>
+            </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
-        <div class="page-section">
-            <div class="row review-section">
-                <div class="col-xs-12 content-left">
-                    <div class="col-xs-3">
-                        <img class="user-avatar"
-                            src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg"
-                            alt="default user image">
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <article>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere minus reprehenderit aliquam pariatur
+                    possimus, perspiciatis fuga cumque nihil sint, expedita necessitatibus enim impedit nemo dolore
+                    numquam quas recusandae quisquam odit architecto quo velit et voluptate inventore consequuntur?
+                    Eius, velit. Quis unde modi magni sapiente fuga libero accusantium quidem. Animi, veritatis?
+                </article>
+            </div>
+        </div>
+        <hr>
+        <!-- Review section -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="page-section">
+                    <div class="row review-section">
+                        <div class="col-xs-12 content-left">
+                            <div class="col-xs-3">
+                                <img class="user-avatar"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg"
+                                    alt="default user image">
+                            </div>
+                            <div class="col-xs-9 review-text">
+                                <span>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+                                    perspiciatis facilis numquam iste vitae placeat, eligendi aperiam ipsam
+                                    soluta molestiae"
+                                </span>
+                                <p><strong>- User, location</strong></p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-xs-9 review-text">
-                        <span>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-                            perspiciatis facilis numquam iste vitae placeat, eligendi aperiam ipsam soluta molestiae"
-                        </span>
-                        <p><strong>- User, location</strong></p>
+                    <div class="row review-section">
+                        <div class="col-xs-12 content-right">
+                            <div class="col-xs-9 review-text">
+                                <span>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+                                    perspiciatis facilis numquam iste vitae placeat, eligendi aperiam ipsam
+                                    soluta molestiae"
+                                </span>
+                                <p><strong>- User, location</strong></p>
+                            </div>
+                            <div class="col-xs-3">
+                                <img class="user-avatar"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg"
+                                    alt="default user image">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row review-section">
-                <div class="col-xs-12 content-right">
-                    <div class="col-xs-9 review-text">
-                        <span>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-                            perspiciatis facilis numquam iste vitae placeat, eligendi aperiam ipsam soluta molestiae"
-                        </span>
-                        <p><strong>- User, location</strong></p>
-                    </div>
-                    <div class="col-xs-3">
-                        <img class="user-avatar"
-                            src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg"
-                            alt="default user image">
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
+
 
 {% endblock %}

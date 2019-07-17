@@ -14,22 +14,11 @@ class CreateTicketForm(forms.ModelForm):
 class EditTicketForm(forms.ModelForm):
     """Form to edit a Ticket Object"""
     class Meta:
-        STATUS_CHOICES = [
-            ('reviewing', 'Reviewing'),
-            ('in progress', 'In Progress'),
-            ('closed', 'Closed')
-        ]
-        
-        TICKET_TYPE_CHOICES = [
-            ('bug', 'Bug'),
-            ('feature', 'Feature'),
-        ]
 
         model = Ticket
-        fields = ('title', 'description', 'status', 'ticket_type')
-        widgets = {
-            'status': forms.Select(choices=STATUS_CHOICES, attrs={'class': 'form-dropdown'}), 
-            'ticket_type': forms.Select(choices=TICKET_TYPE_CHOICES, attrs={'class': 'form-dropdown'}),
+        fields = ('title', 'description', 'ticket_type')
+        widgets = { 
+            'ticket_type': forms.Select(attrs={'class': 'form-dropdown'}),
             'description': forms.Textarea(attrs={'class': 'form-textbox'})
         }
 

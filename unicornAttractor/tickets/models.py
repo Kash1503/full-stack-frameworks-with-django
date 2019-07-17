@@ -7,17 +7,28 @@ from django.contrib import auth
 class Ticket(models.Model):
     """Model to store ticket information"""
 
+    STATUS_CHOICES = [
+            ('reviewing', 'Reviewing'),
+            ('in progress', 'In Progress'),
+            ('closed', 'Closed')
+        ]
+        
+    TICKET_TYPE_CHOICES = [
+        ('bug', 'Bug'),
+        ('feature', 'Feature'),
+    ]
+
     title = models.CharField(max_length=200, null=False)
     description = models.TextField(null=False)
     upvotes = models.IntegerField(default=0, null=False)
     views = models.IntegerField(default=0, null=False)
     dateTimeCreated = models.DateTimeField(auto_now_add=True)
     userID = models.ForeignKey('auth.User', null=False, on_delete=models.SET_DEFAULT, default=1)
-    status = models.CharField(max_length=200, null=False, default='reviewing')
+    status = models.CharField(max_length=200, null=False, default='reviewing', choices=STATUS_CHOICES)
     lastUpdatedBy = models.CharField(max_length=200, null=False, default='unknown')
     lastUpdatedDateTime = models.DateTimeField()
     value = models.FloatField(default=0)
-    ticket_type = models.CharField(max_length=50, null=False)
+    ticket_type = models.CharField(max_length=50, null=False, choices=TICKET_TYPE_CHOICES)
 
     def __str__(self):
         return self.title   
