@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block head_js %}
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+    //<![CDATA[
+    Stripe.publishableKey = '{{ publishable }}';
+    //]]>
+</script>
+<script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
+{% endblock %}
+
 {% block page_heading %}Checkout{% endblock %}
 
 {% block content %}
@@ -31,9 +42,123 @@
         </div>
     </div>
 </div>
-<!-- Order form -->
 
+<!-- Stripe messages -->
+<div id="credit-card-errors" style="display: none;">
+    <div id="alert-message block-message error" id="stripe-error-message"></div>
+</div>
+<!-- Stripe messages END -->
 
-<!-- Payment form -->
+<div class="row">
+    <div class="col-xs-12 section-box">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Payment Details</h4>
+            </div>
+        </div>
+        <hr>
 
+        <form role="form" method='POST' id="payment-form">
+            <div class="row">   
+                <!-- Order form -->
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12 form-input">
+                            {{ order_form.full_name.errors }}
+                            {{ order_form.full_name.label_tag }}
+                            {{ order_form.full_name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-input">
+                            {{ order_form.phone_number.errors }}
+                            {{ order_form.phone_number.label_tag }}
+                            {{ order_form.phone_number }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-input">
+                            {{ order_form.street1.errors }}
+                            {{ order_form.street1.label_tag }}
+                            {{ order_form.street1 }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-input">
+                            {{ order_form.street2.errors }}
+                            {{ order_form.street2.label_tag }}
+                            {{ order_form.street2 }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-input">
+                            {{ order_form.town_or_city.errors }}
+                            {{ order_form.town_or_city.label_tag }}
+                            {{ order_form.town_or_city }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 form-input">
+                            {{ order_form.county.errors }}
+                            {{ order_form.county.label_tag }}
+                            {{ order_form.county }}
+                        </div>
+                        <div class="col-xs-6 form-input">
+                            {{ order_form.postcode.errors }}
+                            {{ order_form.postcode.label_tag }}
+                            {{ order_form.postcode }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-input">
+                            {{ order_form.country.errors }}
+                            {{ order_form.country.label_tag }}
+                            {{ order_form.country }}
+                        </div>
+                    </div>
+                </div>
+                <!-- Payment form -->
+                <div class="col-xs-6">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-xs-12 form-input">
+                            {{ payment_form.credit_card_number.errors }}
+                            {{ payment_form.credit_card_number.label_tag }}
+                            {{ payment_form.credit_card_number }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-input">
+                            {{ payment_form.cvv.errors }}
+                            {{ payment_form.cvv.label_tag }}
+                            {{ payment_form.cvv }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 form-input">
+                            {{ payment_form.expiry_month.errors }}
+                            {{ payment_form.expiry_month.label_tag }}
+                            {{ payment_form.expiry_month }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 form-input">
+                            {{ payment_form.expiry_year.errors }}
+                            {{ payment_form.expiry_year.label_tag }}
+                            {{ payment_form.expiry_year }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                {% csrf_token %}
+                <div class="col-xs-12">
+                    <input class="btn btn-primary" type="submit" name="commit" id="submit_payment_btn"
+                        value="Confirm Payment">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
