@@ -1,20 +1,44 @@
 {% extends 'base.html' %}
-
+{% load static from staticfiles %}
 {% block head_js %}
-
+<script type="text/javascript" src="{% static 'js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/crossfilter.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/dc.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/queue.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/charts.js' %}"></script>
 {% endblock %}
 
 {% block page_heading %}Dashboard{% endblock %}
 
 {% block content %}
+<!-- Top rated ticket tables -->
 <div class="row">
-    <div class="col-xs-4 col-xs-offset-1 section-box">
+    <div class="col-xs-4 col-xs-offset-1 section-box" style="height: 100%">
         <h4>Most supported features</h4>
         <hr>
+        {% for feature in top_features %}
+        <p><strong>{{ feature.title }}</strong></p>
+        <p>£{{ feature.value }}</p>
+        {% endfor %}
     </div>
-    <div class="col-xs-4 col-xs-offset-2 section-box">
+    <div class="col-xs-4 col-xs-offset-2 section-box" style="height: 100%">
         <h4>Most upvoted bugs</h4>
         <hr>
+        {% for bug in top_bugs %}
+        <p><strong>{{ bug.title }}</strong></p>
+        <p><i class="glyphicon glyphicon-thumbs-up"></i> {{ bug.upvotes }}</p>
+        {% endfor %}
+    </div>
+</div>
+<!-- Charts -->
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1 section-box">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- graph goes here -->
+                <div id="status-chart"></div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
