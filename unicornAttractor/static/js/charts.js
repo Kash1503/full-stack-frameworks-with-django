@@ -1,5 +1,5 @@
 queue()
-    .defer(d3.json, "get_data")
+    .defer(d3.json, 'get_data')
     .await(makeGraphs);
 
 function makeGraphs(error, graphData){
@@ -9,11 +9,11 @@ function makeGraphs(error, graphData){
     statusChart(ndx);
     
     dc.renderAll();
-}
+}   
 
 function statusChart(ndx){
     
-    var dim = ndx.dimension(dc.pluck('status'));
+    var dim = ndx.dimension(dc.pluck('ticket_type'));
     var group = dim.group();
     
     dc.pieChart('#status-chart')

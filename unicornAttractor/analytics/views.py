@@ -9,8 +9,9 @@ def get_json_data(request):
     Query the database and return all closed tickets in JSON format to be used by D3.js
     """
 
-    closed_tickets = serialize('json', Ticket.objects.filter(status__exact='closed'))
-    return HttpResponse(closed_tickets, content_type="application/json")
+    closed_tickets = serialize('json', Ticket.objects.filter(status__exact='closed'), fields=('ticket_type'))
+    
+    return HttpResponse(closed_tickets, content_type='application/json')
 
 
 def dashboard(request):
