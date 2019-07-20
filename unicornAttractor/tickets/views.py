@@ -3,17 +3,28 @@ from django.contrib import messages
 from .forms import CreateTicketForm, CommentForm, FilterForm, EditTicketForm
 from .models import Ticket, Comments
 from django.utils import timezone
+import math
 
 # Create your views here.
 
-def tracker(request):
+def tracker(request, current_page):
     """
     Load the tracker page with a list of tickets which are not of 'closed' status
-    and sort them by the oldest first
+    and sort them by the oldest first. Determine how many pages are required for pagination
+    and return tickets list of 5 tickets depending on the selected page
     """
 
     if request.user.is_authenticated:
-        tickets = Ticket.objects.exclude(status__exact='closed').order_by('dateTimeCreated')
+        all_tickets = Ticket.objects.exclude(status__exact='closed').order_by('dateTimeCreated')
+
+        page_amount = math.ceil(all_tickets.count() / 5)
+        pages = []
+        page = 1
+        while page <= page_amount:
+            pages.append(page)
+            page += 1
+
+        tickets = Ticket.objects.exclude(status__exact='closed').order_by('dateTimeCreated')[(int(current_page)*5)-5:int(current_page)*5]
 
         if request.method == 'POST':
             filter_form = FilterForm(request.POST, label_suffix='')
@@ -23,12 +34,12 @@ def tracker(request):
                     tickets = Ticket.objects.exclude(status__exact='closed').order_by(request.POST['sort_by'])
                 else:
                     tickets = Ticket.objects.filter(ticket_type__exact=request.POST['ticket_type']).exclude(status__exact='closed').order_by(request.POST['sort_by'])
-                return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form})
+                return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form, 'pages': pages})
 
         else: 
             filter_form = FilterForm(label_suffix='')
 
-        return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form})
+        return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form, 'pages': pages})
     else:
         return redirect(reverse('account_login'))
 

@@ -4,6 +4,7 @@ from .forms import LoginForm, RegistrationForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from tickets.models import Ticket
+import math
 
 # Create your views here.
 
@@ -77,15 +78,25 @@ def register(request):
     return render(request, 'register.html', {'registration_form': registration_form, 'profile_form': profile_form})
 
 
-def user_profile(request):
+def user_profile(request, current_page):
     """
     Render the users profile page with the users information
     """
     user_profile = UserProfile.objects.get(userID=request.user)
 
-    user_tickets = Ticket.objects.filter(userID__exact=request.user)
+    all_user_tickets = Ticket.objects.filter(userID__exact=request.user)
+
+    page_amount = math.ceil(all_user_tickets.count() / 5)
+    pages = []
+    page = 1
+    while page <= page_amount:
+        pages.append(page)
+        page += 1
+
+    user_tickets = Ticket.objects.filter(userID__exact=request.user)[(int(current_page)*5)-5:int(current_page)*5]
+
     total_tickets = 0
     for ticket in user_tickets:
         total_tickets += 1
 
-    return render(request, 'user-profile.html', {'user_profile': user_profile, 'user_tickets': user_tickets, 'total_tickets': total_tickets})
+    return render(request, 'user-profile.html', {'user_profile': user_profile, 'user_tickets': user_tickets, 'total_tickets': total_tickets, 'pages': pages})

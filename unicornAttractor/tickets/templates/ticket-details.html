@@ -6,7 +6,7 @@
     <div class="col-xs-10 col-xs-offset-1 section-box">
         <div class="row tracker-info-row">
             <div class="col-xs-12">
-                <h2 class="ticket-title">{{ ticket.title }}</h2>
+                <h2 class="ticket-title">#{{ ticket.id }} {{ ticket.title }}</h2>
                 <p class="tracker-ticket-date">Created by {{ ticket.userID.username }} on {{ ticket.dateTimeCreated }}
                 </p>
                 <hr>
@@ -43,7 +43,7 @@
         <hr>
         <div class="row">
             <div class="col-xs-6 content-left">
-                {% if ticket.ticket_type == 'bug' %}
+                {% if ticket.ticket_type == 'bug' and request.user != ticket.userID %}
                 <a class="btn btn-primary" href="{% url 'upvote_ticket' pk=ticket.id %}">I'm also having this issue!</a>
                 {% elif ticket.ticket_type == 'feature' %}
                 <a class="btn btn-primary" href="{% url 'support_feature' pk=ticket.id %}">I want this too!</a>

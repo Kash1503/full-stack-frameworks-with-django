@@ -48,7 +48,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'index' %}">Home</a></li>
-                    <li><a href="{% url 'tracker' %}">Ticket Tracker</a></li>
+                    <li><a href="{% url 'tracker' current_page=1 %}">Ticket Tracker</a></li>
                     <li><a href="{% url 'dashboard' %}">Analytics</a></li>
                     <li><a href="{% url 'view_cart' %}"><i
                                 class="glyphicon glyphicon-shopping-cart"></i>{% if ticket_count != 0 %}<span
@@ -64,7 +64,7 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             {% if user.is_authenticated %}
-                            <li><a href="{% url 'user_profile' %}">Profile</a></li>
+                            <li><a href="{% url 'user_profile' current_page=1 %}">Profile</a></li>
                             <li><a href="{% url 'password_change' %}">Change your password</a></li>
                             <hr>
                             <li><a href="{% url 'account_logout' %}">Log out</a></li>
@@ -120,8 +120,8 @@
                     <ul>
                         <p><strong>Navigation</strong></p>
                         <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="#">Issue Tracker</a></li>
-                        <li><a href="#">Analytics</a></li>
+                        <li><a href="{% url 'tracker' current_page=1 %}">Issue Tracker</a></li>
+                        <li><a href="{% url 'dashboard' %}">Analytics</a></li>
                     </ul>
                 </div>
             </div>
