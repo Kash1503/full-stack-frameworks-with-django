@@ -48,7 +48,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'index' %}">Home</a></li>
-                    <li><a href="{% url 'tracker' current_page=1 %}">Ticket Tracker</a></li>
+                    <li><a href="{% url 'tracker' filter_type='all' filter_sort='dateTimeCreated' current_page=1 %}">Ticket Tracker</a></li>
                     <li><a href="{% url 'dashboard' %}">Analytics</a></li>
                     <li><a href="{% url 'view_cart' %}"><i
                                 class="glyphicon glyphicon-shopping-cart"></i>{% if ticket_count != 0 %}<span
@@ -120,7 +120,7 @@
                     <ul>
                         <p><strong>Navigation</strong></p>
                         <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'tracker' current_page=1 %}">Issue Tracker</a></li>
+                        <li><a href="{% url 'tracker' filter_type='all' filter_sort='dateTimeCreated' current_page=1 %}">Issue Tracker</a></li>
                         <li><a href="{% url 'dashboard' %}">Analytics</a></li>
                     </ul>
                 </div>

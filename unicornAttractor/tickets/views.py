@@ -7,39 +7,56 @@ import math
 
 # Create your views here.
 
-def tracker(request, current_page):
+def tracker(request, filter_type, filter_sort, current_page,):
     """
     Load the tracker page with a list of tickets which are not of 'closed' status
     and sort them by the oldest first. Determine how many pages are required for pagination
     and return tickets list of 5 tickets depending on the selected page
     """
-
-    if request.user.is_authenticated:
-        all_tickets = Ticket.objects.exclude(status__exact='closed').order_by('dateTimeCreated')
-
-        page_amount = math.ceil(all_tickets.count() / 5)
+    def calculate_pages(tickets):
+        """Calculate the amount of pages required for pagination"""
+        page_amount = math.ceil(tickets.count() / 5)
         pages = []
         page = 1
         while page <= page_amount:
             pages.append(page)
             page += 1
+        return pages
 
-        tickets = Ticket.objects.exclude(status__exact='closed').order_by('dateTimeCreated')[(int(current_page)*5)-5:int(current_page)*5]
+    if request.user.is_authenticated:
+
+        if filter_type == 'all':
+            all_tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)
+            pages = calculate_pages(all_tickets)
+            tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)[(int(current_page)*5)-5:int(current_page)*5]
+        else:
+            all_tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)
+            pages = calculate_pages(all_tickets)
+            tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)[(int(current_page)*5)-5:int(current_page)*5]
 
         if request.method == 'POST':
             filter_form = FilterForm(request.POST, label_suffix='')
 
             if filter_form.is_valid():
-                if request.POST['ticket_type'] == 'all':
-                    tickets = Ticket.objects.exclude(status__exact='closed').order_by(request.POST['sort_by'])
+
+                filter_type = request.POST['ticket_type']
+                filter_sort = request.POST['sort_by']
+
+                if filter_type == 'all':
+                    tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)
+                    pages = calculate_pages(all_tickets)
+                    tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)[(int(current_page)*5)-5:int(current_page)*5]
                 else:
-                    tickets = Ticket.objects.filter(ticket_type__exact=request.POST['ticket_type']).exclude(status__exact='closed').order_by(request.POST['sort_by'])
-                return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form, 'pages': pages})
+                    tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)
+                    pages = calculate_pages(all_tickets)
+                    tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)[(int(current_page)*5)-5:int(current_page)*5]
+
+                return redirect(reverse('tracker', args=[filter_type, filter_sort, 1]))
 
         else: 
             filter_form = FilterForm(label_suffix='')
 
-        return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form, 'pages': pages})
+        return render(request, 'tracker.html', {'tickets': tickets, 'filter_form': filter_form, 'pages': pages, 'filter_type': filter_type, 'filter_sort': filter_sort})
     else:
         return redirect(reverse('account_login'))
 
@@ -67,7 +84,7 @@ def create_ticket(request, ticket_type):
             new_ticket.lastUpdatedDateTime = timezone.now()
             new_ticket.save()
             messages.success(request, 'Your ' + ticket_type + ' has been logged successfully!')
-            return redirect(reverse('tracker'))
+            return redirect(reverse('tracker', args=['all', 'dateTimeCreated', 1]))
     else:
         create_ticket_form = CreateTicketForm(label_suffix='')
 

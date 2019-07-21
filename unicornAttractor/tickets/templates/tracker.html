@@ -20,10 +20,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     <a href="{% url 'new_ticket' ticket_type='bug' %}" class="btn btn-primary">Log a bug</a>
                     <a href="{% url 'new_ticket' ticket_type='feature' %}" class="btn btn-primary">Request a
                         feature</a>
+                </div>
+                <div class="col-xs-6 content-right">
                     <button class='btn btn-primary' type='submit'>Filter</button>
                 </div>
             </div>
@@ -81,7 +83,7 @@
                     <div class="col-xs-12 content-center">
                         <ul class="pagination">
                             {% for page in pages %}
-                            <li><a href="{% url 'tracker' page %}">{{ page }}</a></li>
+                            <li><a href="{% url 'tracker' filter_type filter_sort page  %}">{{ page }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>

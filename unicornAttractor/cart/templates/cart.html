@@ -8,7 +8,7 @@
         {% if ticket_count == 0 %}
         <div class="row">
             <div class="col-xs-12">
-                <p>There are no tickets currently in your basket. Why not visit the <a href="{% url 'tracker' %}">Ticket Tracker</a> and browse the features</p>
+                <p>There are no tickets currently in your basket. Why not visit the <a href="{% url 'tracker' filter_type='all' filter_sort='dateTimeCreated' current_page=1 %}">Ticket Tracker</a> and browse the features</p>
             </div>
         </div>
         {% else %}

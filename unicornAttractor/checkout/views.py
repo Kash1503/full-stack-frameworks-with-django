@@ -72,7 +72,7 @@ def checkout(request):
                     ticket.save()
 
                 request.session['cart'] = {}
-                return redirect(reverse('tracker'))
+                return redirect(reverse('tracker', args=['all', 'dateTimeCreated', 1]))
             else:
                 messages.error(request, 'Unable to take payment!')
         

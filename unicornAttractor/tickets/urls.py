@@ -3,7 +3,7 @@ from django.conf.urls import url
 from .views import tracker, create_ticket, ticket_details, upvote_comment, upvote_ticket, edit_ticket, support_feature
 
 urlpatterns = [
-    path('<current_page>', tracker, name='tracker'),
+    path('<filter_type>/<filter_sort>/<current_page>/', tracker, name='tracker'),
     path('new-ticket/<ticket_type>/', create_ticket, name='new_ticket'),
     url(r'^(?P<pk>\d+)/$', ticket_details, name='ticket_details'),
     url(r'^upvote_comment/(?P<pk>\d+)/(?P<ticket_id>\d+)$', upvote_comment, name='upvote_comment'),
