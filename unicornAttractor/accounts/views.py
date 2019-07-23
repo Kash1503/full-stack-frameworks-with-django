@@ -48,7 +48,7 @@ def register(request):
     """Render the registration form and handle registration logic"""
 
     if request.user.is_authenticated:
-        return redirect(reverse('account_login'))
+        return redirect(reverse('index'))
 
     if request.method == 'POST':
         registration_form = RegistrationForm(request.POST, label_suffix='')
@@ -77,7 +77,7 @@ def register(request):
     
     return render(request, 'register.html', {'registration_form': registration_form, 'profile_form': profile_form})
 
-
+@login_required()
 def user_profile(request, current_page):
     """
     Render the users profile page with the users information
