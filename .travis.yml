@@ -6,4 +6,6 @@ matrix:
       sudo: true
 install: "pip install -r requirements.txt"
 script:
-- SECRET_KEY="secret" ./manage.py test
+- SECRET_KEY="secret" coverage run manage.py test
+after_success:
+  - codecov

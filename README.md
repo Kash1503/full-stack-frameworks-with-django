@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/Kash1503/full-stack-frameworks-with-django.svg?branch=master)](https://travis-ci.org/Kash1503/full-stack-frameworks-with-django)
+
+[![codecov](https://codecov.io/gh/Kash1503/full-stack-frameworks-with-django/branch/master/graph/badge.svg)](https://codecov.io/gh/Kash1503/full-stack-frameworks-with-django)
+
+
 # UnicornAttractor - Full Stack Development with Django 
 
 This is a website designed to allow fans of the UnicornAttractor web app to log any technical issues they are having or request that the developers of the app create a new feature. Users can track the status of any issues or features, and even see how the development team are progressing through use of the analytics section, providing transparency between the dev team and the user. 
@@ -163,6 +168,8 @@ All testing completed on Safari and Google Chrome at both mobile and desktop siz
 *Automatic Testing*
 
 [![Build Status](https://travis-ci.org/Kash1503/full-stack-frameworks-with-django.svg?branch=master)](https://travis-ci.org/Kash1503/full-stack-frameworks-with-django)
+
+[![codecov](https://codecov.io/gh/Kash1503/full-stack-frameworks-with-django/branch/master/graph/badge.svg)](https://codecov.io/gh/Kash1503/full-stack-frameworks-with-django)
 
 To run the automatic tests, please use the command 'python3 manage.py test' in the console. All tests should pass.
 

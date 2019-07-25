@@ -22,17 +22,21 @@ def tracker(request, filter_type, filter_sort, current_page,):
             pages.append(page)
             page += 1
         return pages
+    
+    pagination_min = (int(current_page)*5)-5
+    pagination_max = int(current_page)*5
 
     if request.user.is_authenticated:
 
         if filter_type == 'all':
             all_tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)
             pages = calculate_pages(all_tickets)
-            tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)[(int(current_page)*5)-5:int(current_page)*5]
+
+            tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)[pagination_min:pagination_max]
         else:
             all_tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)
             pages = calculate_pages(all_tickets)
-            tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)[(int(current_page)*5)-5:int(current_page)*5]
+            tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)[pagination_min:pagination_max]
 
         if request.method == 'POST':
             filter_form = FilterForm(request.POST, label_suffix='')
@@ -45,11 +49,11 @@ def tracker(request, filter_type, filter_sort, current_page,):
                 if filter_type == 'all':
                     tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)
                     pages = calculate_pages(all_tickets)
-                    tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)[(int(current_page)*5)-5:int(current_page)*5]
+                    tickets = Ticket.objects.exclude(status__exact='closed').order_by(filter_sort)[pagination_min:pagination_max]
                 else:
                     tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)
                     pages = calculate_pages(all_tickets)
-                    tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)[(int(current_page)*5)-5:int(current_page)*5]
+                    tickets = Ticket.objects.filter(ticket_type__exact=filter_type).exclude(status__exact='closed').order_by(filter_sort)[pagination_min:pagination_max]
 
                 return redirect(reverse('tracker', args=[filter_type, filter_sort, 1]))
 
