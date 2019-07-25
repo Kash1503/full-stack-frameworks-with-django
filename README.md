@@ -188,7 +188,11 @@ The environment variables needed to be applied to the Heroku app so these were s
 
 Finally, a Posgres database has been used for production, so this was also implemented on the Heroku dashboard, and in the settings.py file, set to use the Postgres database for deployment, but to use the SQLite database for development. This also required that 'Debug' mode was turned off in deployment and turned on in development so as to prevent users seeing debug code when using the app.
 
-I have only used multiple git branches for development. One to implement the dashboard, one for the unit tests and the master branch. Initially began working soley from the master branch however, after speaking with my course mentor, used the other branches.
+Ran into an issue with deployment whereby the static files were not loading on the deployed Heroku build, however once Whitenoise was installed following a review of the Heroku documentation, the build now works.
+
+In order to run on Heroku and also testing using Travis continous integrations, I had to implement a new environment variable to determine which database to use and also whether or not to use debug mode.
+
+I have only used multiple git branches for development. One to implement the dashboard, one for the unit tests and one for the master branch. Initially began working solely from the master branch however, after speaking with my course mentor, used the other branches.
 
 [Click here to go to the website](https://unicorn-attractor-issues.herokuapp.com/)
 
