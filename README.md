@@ -203,6 +203,21 @@ I have only used multiple git branches for development. One to implement the das
 
 [Click here to go to the website](https://unicorn-attractor-issues.herokuapp.com/)
 
+Steps taken to deploy:
+
+- Create new app on Heroku
+- Set the environment variables for the Heroku app
+- Install the Postgres add-on for Heroku
+- Install dj-database-url and psycopg2 in development environment
+- Set up if statements to determine if the app is running in development mode or deployed mode
+- Set the SQLite database to be used for development mode and the PostgreSQL database for deployment
+- Install whitenoise in the development environment and update requirements.txt
+- Add the Procfile required by Heroku
+- Push updated code to github and link the repository to Heroku
+- Push the build to Heroku and test
+- Create the .travis.yml file and install codecov in development environment
+- Ensure tests are completing and add badges for travis and codecov to README.md
+
 ### Content
 
 Only one image was used for this project, the user avatar image on the home page and comments section.
