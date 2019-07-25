@@ -162,8 +162,6 @@ All testing completed on Safari and Google Chrome at both mobile and desktop siz
 
 *Automatic Testing*
 
-[![Build Status](https://travis-ci.org/Kash1503/full-stack-frameworks-with-django.svg?branch=master)](https://travis-ci.org/Kash1503/full-stack-frameworks-with-django)
-
 To run the automatic tests, please use the command 'python3 manage.py test' in the console. All tests should pass.
 
 You can also use the command 'coverage run manage.py test' to use Coverage to run the tests, and then the command 'coverage report -m' to see the coverage of tests accross the code.
@@ -190,7 +188,7 @@ Finally, a Posgres database has been used for production, so this was also imple
 
 I have only used multiple git branches for development. One to implement the dashboard, one for the unit tests and the master branch. Initially began working soley from the master branch however, after speaking with my course mentor, used the other branches.
 
-[Click here to go to the website](https://data-centric-design.herokuapp.com/)
+[Click here to go to the website](https://unicorn-attractor-issues.herokuapp.com/)
 
 ### Content
 
