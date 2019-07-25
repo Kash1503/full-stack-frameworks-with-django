@@ -14,6 +14,13 @@ import os
 import socket
 import dj_database_url
 
+if os.path.exists('env.py'):
+    import env
+
+if os.environ.get('DEVELOPMENT'):
+    development = True
+else:
+    development = False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,12 +34,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+DEBUG = development
 
 ALLOWED_HOSTS = ['unicorn-attractor-issues.herokuapp.com', '127.0.0.1']
-
-if socket.gethostname() == 'unicorn-attractor-issues.herokuapp.com':
-    DEBUG = False
 
 # Application definition
 
@@ -87,14 +91,14 @@ WSGI_APPLICATION = 'unicornAttractor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if DEBUG == True:
+if development:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-elif DEBUG == False:
+else:
     DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 
 # Password validation
