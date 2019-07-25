@@ -2,7 +2,11 @@
 $section-colour: #94cef0;
 
 // Mixins
-
+@mixin min768 {
+    @media only screen and (min-width: 768px) {
+        @content;
+    }
+}
 
 // Generic styles
 .page-heading{
@@ -14,7 +18,7 @@ $section-colour: #94cef0;
 .page-section{
     width: 100%;
     text-align: center;
-    margin-bottom: 100px;
+    margin-bottom: 10px;
 }
 
 .section-box{
@@ -36,6 +40,20 @@ $section-colour: #94cef0;
     text-align: center;
 }
 
+.xs-button-row{
+    margin-bottom: 10px;
+}
+
+.spacer-small{
+    width: 30px;
+    height: 2px;
+    border: none;
+    border-radius: 2px;
+    background-color: $section-colour;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
 // forms
 .form-input input{
     width: 100%;
@@ -50,7 +68,7 @@ $section-colour: #94cef0;
 }
 
 .form-input-pledge input{
-    width: 50%;
+    width: 45%;
     margin-bottom: 15px;
     padding: 8px 12px;
     border-radius: 4px;
@@ -76,6 +94,10 @@ $section-colour: #94cef0;
     border-color: rgb(202, 202, 202);
 }
 
+.info-text{
+    text-align: justify;
+}
+
 // navbar
 .navbar{
     background-image: linear-gradient(#9dcbe6, #2fa4e7 60%, #147cb8);
@@ -83,14 +105,28 @@ $section-colour: #94cef0;
 }
 
 // footer
+.main-container{
+    min-height: 100vh;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 100px;
+}
+
 .footer-section{
-    height: 150px;
+    height: 100px;
     width: 100%;
     background-image: linear-gradient(#9dcbe6, #2fa4e7 60%, #147cb8);
     color: white;
     border: 1px solid #2fa4e7;
     border-radius: 5px;
     padding-top: 30px;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-section a{
@@ -101,33 +137,39 @@ $section-colour: #94cef0;
     list-style: none;
 }
 
+html,
+body {
+    height: 100%;
+    position: relative;
+}
+
 // home page
 .user-avatar{
     border-radius: 50%;
     height: width;
     width: 100%;
-    margin: 0 20px;
+    margin: 0;
 }
 
 .review-section{
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 
 .review-text{
     font-size: 12px;
-    margin-top: 50px;
+    margin-top: 10px;
     text-align: left;
     font-style: italic;
 }
 
 // ticket tracker
 .tracker-ticket-title{
-    font-size: 25px;
+    font-size: 15px;
     color: black;
 }
 
 .tracker-ticket-date{
-    font-size: 12px;
+    font-size: 9px;
     color: rgb(105, 105, 105);
     font-style: italic;
 }
@@ -174,7 +216,7 @@ $section-colour: #94cef0;
 
 .tracker-ticket-info{
     margin-left: 5px;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .tracker-info-row{
@@ -183,7 +225,7 @@ $section-colour: #94cef0;
 
 // ticket details
 .ticket-title{
-    font-size: 30px;
+    font-size: 20px;
     color: black;
     margin-top: 0;
 }
@@ -194,11 +236,12 @@ $section-colour: #94cef0;
 }
 
 .ticket-description{
+    font-size: 12px;
     color: rgb(24, 24, 24)
 }
 
 .comment-row{
-    height: 150px;
+    height: 70px;
 }
 
 .comment-username{
@@ -212,4 +255,61 @@ $section-colour: #94cef0;
 
 .comment-body{
     font-size: 14px;
+}
+
+// Analytics page
+#closed-chart-mobile .x.axis text {
+    text-anchor: end !important;
+    transform: rotate(-90deg) translate(-10px, -13px);
+}
+
+.dc-legend {
+    font-size: 8px !important;
+}
+
+// Media Queries
+@include min768 {
+    .tracker-ticket-title{
+        font-size: 25px;
+        color: black;
+    }
+
+    .ticket-title{
+        font-size: 30px;
+        color: black;
+        margin-top: 0;
+    }
+
+    .tracker-ticket-date{
+        font-size: 12px;
+        color: rgb(105, 105, 105);
+        font-style: italic;
+    }
+
+    .tracker-ticket-info{
+        margin-left: 5px;
+        font-size: 15px;
+    }
+
+    .comment-row{
+        height: 150px;
+    }
+
+    .main-container{
+        min-height: 100vh;
+        overflow: hidden;
+        display: block;
+        position: relative;
+        padding-bottom: 150px;
+    }
+    
+    .footer-section{
+        height: 150px;
+        width: 100%;
+        background-image: linear-gradient(#9dcbe6, #2fa4e7 60%, #147cb8);
+        color: white;
+        border: 1px solid #2fa4e7;
+        border-radius: 5px;
+        padding-top: 30px;
+    }
 }

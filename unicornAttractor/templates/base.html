@@ -28,105 +28,114 @@
 </head>
 
 <body>
-
-    <!-- Navbar taken from Bootstrap 3.3.7-->
-    <nav class="navbar navbar-default" id="top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{% url 'index' %}">UnicornAttractor</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'index' %}">Home</a></li>
-                    <li><a href="{% url 'tracker' filter_type='all' filter_sort='dateTimeCreated' current_page=1 %}">Ticket Tracker</a></li>
-                    <li><a href="{% url 'dashboard' %}">Analytics</a></li>
-                    <li><a href="{% url 'view_cart' %}"><i
-                                class="glyphicon glyphicon-shopping-cart"></i>{% if ticket_count != 0 %}<span
-                                class="badge">{{ ticket_count }}</span>{% endif %}</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">
-                            {% if user.is_authenticated %}
-                            <span>Hi, {{ user.first_name }}!</span>
-                            {% else %}
-                            <i class="glyphicon glyphicon-user"></i>
-                            {% endif %}
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            {% if user.is_authenticated %}
-                            <li><a href="{% url 'user_profile' current_page=1 %}">Profile</a></li>
-                            <li><a href="{% url 'password_change' %}">Change your password</a></li>
-                            <hr>
-                            <li><a href="{% url 'account_logout' %}">Log out</a></li>
-                            {% else %}
-                            <li><a href="{% url 'account_login' %}">Log in</a></li>
-                            <li><a href="{% url 'register' %}">Register</a></li>
-                            {% endif %}
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Django message display -->
-    {% if messages %}
-    {% for message in messages %}
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="alert alert-warning">
-                {{ message }}
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-    {% endif %}
-
-    <!-- Page specific header -->
-    <div class="row">
-        <div class="col-xs-10 col-xs-offset-1">
-            <h1 class="page-heading">{% block page_heading %}{% endblock %}</h1>
-        </div>
-    </div>
-
-    <!-- Page specific content -->
-    <section>
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </section>
-
-    <footer>
-        <div class="container footer-section">
-            <div class="row">
-                <div class="col-xs-4 content-left">
+    <div class="main-container">
+        <!-- Navbar taken from Bootstrap 3.3.7-->
+        <nav class="navbar navbar-default" id="top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                     <a class="navbar-brand" href="{% url 'index' %}">UnicornAttractor</a>
                 </div>
-                <div class="col-xs-4 content-center">
-                    <a href="#top">Back to top</a>
-                </div>
-                <div class="col-xs-4">
-                    <ul>
-                        <p><strong>Navigation</strong></p>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
                         <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'tracker' filter_type='all' filter_sort='dateTimeCreated' current_page=1 %}">Issue Tracker</a></li>
+                        <li><a
+                                href="{% url 'tracker' filter_type='all' filter_sort='dateTimeCreated' current_page=1 %}">Ticket
+                                Tracker</a></li>
                         <li><a href="{% url 'dashboard' %}">Analytics</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                {% if user.is_authenticated %}
+                                <span>Hi, {{ user.first_name }}!</span>
+                                {% else %}
+                                <i class="glyphicon glyphicon-user"></i>
+                                {% endif %}
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                {% if user.is_authenticated %}
+                                <li><a href="{% url 'user_profile' current_page=1 %}">Profile</a></li>
+                                <li><a href="{% url 'password_change' %}">Change your password</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{% url 'account_logout' %}">Log out</a></li>
+                                {% else %}
+                                <li><a href="{% url 'account_login' %}">Log in</a></li>
+                                <li><a href="{% url 'register' %}">Register</a></li>
+                                {% endif %}
+                            </ul>
+                            {% if user.is_authenticated %}
+                        <li><a href="{% url 'view_cart' %}"><i
+                                    class="glyphicon glyphicon-shopping-cart"></i>{% if ticket_count != 0 %}<span
+                                    class="badge">{{ ticket_count }}</span>{% endif %}</a></li>
+                        {% endif %}
+                        </li>
                     </ul>
                 </div>
             </div>
+        </nav>
+
+        <!-- Django message display -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert alert-warning">
+                    {{ message }}
+                </div>
+            </div>
         </div>
-    </footer>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Page specific header -->
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <h1 class="page-heading">{% block page_heading %}{% endblock %}</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page specific content -->
+        <section>
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container footer-section">
+                <div class="row">
+                    <div class="hidden-xs col-sm-4 content-left">
+                        <a class="navbar-brand" href="{% url 'index' %}">UnicornAttractor</a>
+                    </div>
+                    <div class="col-xs-4 col-xs-offset-4 col-sm-4 col-sm-offset-0 content-center">
+                        <a href="#top">Back to top</a>
+                    </div>
+                    <div class="hidden-xs col-sm-4">
+                        <ul>
+                            <p><strong>Navigation</strong></p>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li><a
+                                    href="{% url 'tracker' filter_type='all' filter_sort='dateTimeCreated' current_page=1 %}">Issue
+                                    Tracker</a></li>
+                            <li><a href="{% url 'dashboard' %}">Analytics</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
 </body>
 
 </html>

@@ -5,7 +5,7 @@
 {% block content %}
 <!-- User info -->
 <div class="row">
-    <div class="col-xs-6 col-xs-offset-3 section-box">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 section-box">
         <div class="row">
             <div class="col-xs-12">
                 <p><strong>Full name: </strong>{{ request.user.first_name }} {{ request.user.last_name }}</p>
@@ -33,9 +33,21 @@
                 <p><strong>Tickets created: </strong>{{ total_tickets }}</p>
             </div>
         </div>
-        <div class="row">
+        <!-- small screen -->
+        <div class="row hidden-xs">
             <div class="col-xs-12">
                 <a href="{% url 'new_ticket' ticket_type='bug' %}" class="btn btn-primary">Log a bug</a>
+                <a href="{% url 'new_ticket' ticket_type='feature' %}" class="btn btn-primary">Request a feature</a>
+            </div>
+        </div>
+        <!-- medium screen and up -->
+        <div class="row hidden-sm hidden-md hidden-lg xs-button-row">
+            <div class="col-xs-12">
+                <a href="{% url 'new_ticket' ticket_type='bug' %}" class="btn btn-primary">Log a bug</a>
+            </div>
+        </div>
+        <div class="row hidden-sm hidden-md hidden-lg">
+            <div class="col-xs-12">
                 <a href="{% url 'new_ticket' ticket_type='feature' %}" class="btn btn-primary">Request a feature</a>
             </div>
         </div>
@@ -63,7 +75,7 @@
                         </p>
                         <hr>
                         <div class="row tracker-info-row">
-                            <div class="col-xs-6 content-left">
+                            <div class="col-xs-12 col-sm-6 content-left xs-button-row">
                                 <div class="tracker-ticket-type">{{ ticket.ticket_type.capitalize }}</div>
                                 {% if ticket.status == 'reviewing' %}
                                 <div class="tracker-ticket-status-reviewing">{{ ticket.status.capitalize }}</div>
@@ -73,7 +85,20 @@
                                 <div class="tracker-ticket-status-closed">{{ ticket.status.capitalize }}</div>
                                 {% endif %}
                             </div>
-                            <div class="col-xs-6 content-right">
+                            <!-- Small screen size and up -->
+                            <div class="hidden-xs col-sm-6 content-right">
+                                <span class="tracker-ticket-info"><i class="glyphicon glyphicon-eye-open"></i>
+                                    {{ ticket.views }}</span>
+                                {% if ticket.ticket_type == 'feature' %}
+                                <span class="tracker-ticket-info"><i
+                                        class="glyphicon glyphicon-gbp"></i>{{ ticket.value }} paid</span>
+                                {% else %}
+                                <span class="tracker-ticket-info"><i class="glyphicon glyphicon-thumbs-up"></i>
+                                    {{ ticket.upvotes }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Extra small screen size only -->
+                            <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
                                 <span class="tracker-ticket-info"><i class="glyphicon glyphicon-eye-open"></i>
                                     {{ ticket.views }}</span>
                                 {% if ticket.ticket_type == 'feature' %}

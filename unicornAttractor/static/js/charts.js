@@ -49,6 +49,7 @@ function makeGraphs(error, jsonTickets){
     var ndx = crossfilter(dateRange);
 
     closedChart(ndx);
+    closedChartMobile(ndx);
     
     dc.renderAll();
 }   
@@ -76,4 +77,27 @@ function closedChart(ndx){
         .renderArea(true)
         .yAxis().ticks(5);
 }
+
+function closedChartMobile(ndx){
     
+    var dim = ndx.dimension(dc.pluck('date'));
+    var group = dim.group().reduceSum(function(d){ return d.amount });
+
+    var minDate = dim.bottom(1)[0].date;
+    var maxDate = dim.top(1)[0].date;
+
+    dc.lineChart('#closed-chart-mobile')
+        .width($('#closed-chart-mobile').parent().width())
+        .height(200)
+        .margins({top:20, bottom:80, right:20, left:25})
+        .x(d3.time.scale().domain([minDate, maxDate]))
+        .y(d3.scale.linear().domain([0, 5]))
+        .brushOn(false)
+        .xAxisLabel("Date")
+        .yAxisLabel("Closed")
+        .clipPadding(10)
+        .dimension(dim)
+        .group(group)
+        .renderArea(true)
+        .yAxis().ticks(5);
+}

@@ -15,7 +15,7 @@
 {% block content %}
 <!-- Order summary -->
 <div class="row">
-    <div class="col-xs-8 col-xs-offset-2 section-box">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 section-box">
         <div class="row">
             <div class="col-xs-12">
                 <h4>Order Summary</h4>
@@ -50,7 +50,7 @@
 <!-- Stripe messages END -->
 
 <div class="row">
-    <div class="col-xs-12 section-box">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-12 section-box">
         <div class="row">
             <div class="col-xs-12">
                 <h4>Payment Details</h4>
@@ -61,7 +61,7 @@
         <form role="form" method='POST' id="payment-form" action="{% url 'checkout' %}">
             <div class="row">
                 <!-- Order form -->
-                <div class="col-xs-6">
+                <div class="col-xs-12 col-sm-6">
                     <div class="row">
                         <div class="col-xs-12 form-input">
                             {{ order_form.full_name.errors }}
@@ -118,7 +118,7 @@
                     </div>
                 </div>
                 <!-- Payment form -->
-                <div class="col-xs-6">
+                <div class="col-xs-12 col-sm-6">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-xs-12 form-input">
@@ -162,7 +162,10 @@
                 <div class="col-xs-12">
                     <input class="btn btn-primary" type="submit" name="commit" id="submit_payment_btn"
                         value="Confirm Payment">
-                    <span style='font-style: italic;'>* Required field</span>
+                    <!-- small screen size and up -->
+                    <span class="hidden-xs" style='font-style: italic;'>* Required field</span>
+                    <!-- extra small screen size -->
+                    <span class="hidden-sm hidden-md hidden-lg" style='font-style: italic;'>* Required</span>
                 </div>
             </div>
         </form>

@@ -10,12 +10,12 @@
                 <p class="tracker-ticket-date">Created by {{ ticket.userID.username }} on {{ ticket.dateTimeCreated }}
                 </p>
                 <hr>
-                <p class="ticket-heading">Description</p>
+                <p class="ticket-heading hidden-xs">Description</p>
                 <p class="ticket-description">{{ ticket.description }}</p>
             </div>
         </div>
         <div class="row tracker-info-row">
-            <div class="col-xs-6">
+            <div class="col-xs-12 col-sm-6 xs-button-row">
                 <span class="tracker-ticket-type">{{ ticket.ticket_type.capitalize }}</span>
                 {% if ticket.status == 'reviewing' %}
                 <span class="tracker-ticket-status-reviewing">{{ ticket.status.capitalize }}</span>
@@ -25,7 +25,17 @@
                 <span class="tracker-ticket-status-closed">{{ ticket.status.capitalize }}</span>
                 {% endif %}
             </div>
-            <div class="col-xs-6 content-right">
+            <!-- Small screen size and up -->
+            <div class="hidden-xs col-sm-6 content-right">
+                <span class="tracker-ticket-info"><i class="glyphicon glyphicon-eye-open"></i> {{ ticket.views }}</span>
+                <span class="tracker-ticket-info"><i class="glyphicon glyphicon-thumbs-up"></i>
+                    {{ ticket.upvotes }}</span>
+                {% if ticket.ticket_type == 'feature' %}
+                <span class="tracker-ticket-info"><i class="glyphicon glyphicon-gbp"></i>{{ ticket.value }} paid</span>
+                {% endif %}
+            </div>
+            <!-- Extra small screen size -->
+            <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
                 <span class="tracker-ticket-info"><i class="glyphicon glyphicon-eye-open"></i> {{ ticket.views }}</span>
                 <span class="tracker-ticket-info"><i class="glyphicon glyphicon-thumbs-up"></i>
                     {{ ticket.upvotes }}</span>
@@ -66,15 +76,27 @@
                 <hr>
                 {% for comment in comments_list %}
                 <div class="row comment-row">
-                    <div class="col-xs-2">
+                    <div class="col-xs-4 col-sm-2">
                         <img class='user-avatar'
                             src='https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg'
                             alt='Default user image'>
                     </div>
                     <div class="col-xs-8">
-                        <p class="comment-username">{{ comment.userID.username }} <span class="comment-time">- {{ comment.dateTimeCreated }}</span></p>
+                        <p class="comment-username">{{ comment.userID.username }} <span class="comment-time">-
+                                {{ comment.dateTimeCreated }}</span></p>
+                        <!-- Small screen size and up -->
+                        <p class="comment-body hidden-xs">{{ comment.body }}</p>
+                        <span class="comment-like hidden-xs"><a
+                                href="{% url 'upvote_comment' pk=comment.id ticket_id=ticket.id %}"><i
+                                    class="glyphicon glyphicon-thumbs-up"></i></a> {{ comment.upvotes }}</span>
+                    </div>
+                </div>
+                <!-- Extra small screen size only -->
+                <div class="row hidden-sm hidden-md hidden-lg">
+                    <div class="col-xs-12">
                         <p class="comment-body">{{ comment.body }}</p>
-                        <span class="comment-like"><a href="{% url 'upvote_comment' pk=comment.id ticket_id=ticket.id %}"><i
+                        <span class="comment-like"><a
+                                href="{% url 'upvote_comment' pk=comment.id ticket_id=ticket.id %}"><i
                                     class="glyphicon glyphicon-thumbs-up"></i></a> {{ comment.upvotes }}</span>
                     </div>
                 </div>
