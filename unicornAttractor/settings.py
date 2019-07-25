@@ -27,9 +27,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['https://unicorn-attractor-issues.herokuapp.com/']
+ALLOWED_HOSTS = ['unicorn-attractor-issues.herokuapp.com']
 
-if socket.gethostname() == 'https://unicorn-attractor-issues.herokuapp.com/':
+if socket.gethostname() == 'unicorn-attractor-issues.herokuapp.com':
     DEBUG = False
 else: 
     DEBUG = True
