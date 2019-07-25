@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import socket
 import dj_database_url
-if socket.gethostname() != 'unicorn-attractor-issues.herokuapp.com':
-    import env
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
